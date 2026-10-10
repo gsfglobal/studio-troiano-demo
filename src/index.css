@@ -1,0 +1,256 @@
+/* Studio Dentistico Troiano — concept Dental Go
+   Layout: pagine editoriali bianche, una sezione scura cinematografica per pagina,
+   colori presi dal logo originale (azzurro, verde, acquamarina). Tema chiaro scelto
+   deliberatamente: il sito non segue il tema scuro del dispositivo. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: 24 36 42;          /* antracite per i testi */
+  --ink-soft: 84 99 107;
+  --paper: 255 255 255;
+  --mist: 243 246 247;      /* grigio chiarissimo */
+  --line: 223 230 232;
+  --blue: 31 154 211;       /* azzurro del logo, #1F9AD3 */
+  --blue-deep: 18 110 156;  /* azzurro scurito per testi piccoli (contrasto AA) */
+  --green: 140 194 75;      /* verde del logo, #8CC24B */
+  --aqua: 126 206 211;      /* acquamarina del tratto, #7ECED3 */
+  --sky: 101 203 237;       /* celeste del tratto, #65CBED */
+  --night: 11 22 28;        /* sezioni scure */
+  --night-2: 20 36 44;
+
+  --grad-brand: linear-gradient(100deg, rgb(var(--green)) 0%, rgb(var(--aqua)) 42%, rgb(var(--sky)) 68%, rgb(var(--blue)) 100%);
+  --gutter: clamp(20px, 5vw, 72px);
+  --header-h: 76px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+
+@media (max-width: 767px) {
+  :root { --header-h: 64px; }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: rgb(var(--paper));
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  margin: 0;
+  background: rgb(var(--paper));
+  color: rgb(var(--ink));
+  font-family: Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: rgb(var(--aqua) / 0.45); color: rgb(var(--ink)); }
+
+:focus-visible {
+  outline: 2px solid rgb(var(--blue));
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+img { max-width: 100%; display: block; }
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Scala tipografica */
+  .t-display {
+    font-weight: 300;
+    font-size: clamp(2.7rem, 1.25rem + 5.6vw, 7.4rem);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+  .t-h2 {
+    font-weight: 300;
+    font-size: clamp(2.05rem, 1.35rem + 3vw, 4.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .t-h3 {
+    font-weight: 400;
+    font-size: clamp(1.45rem, 1.15rem + 1.1vw, 2.2rem);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  .t-statement {
+    font-weight: 300;
+    font-size: clamp(1.75rem, 1.15rem + 2.55vw, 3.9rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    text-wrap: pretty;
+  }
+  .t-lead {
+    font-size: clamp(1.04rem, 0.97rem + 0.35vw, 1.27rem);
+    line-height: 1.62;
+    color: rgb(var(--ink-soft));
+    text-wrap: pretty;
+  }
+  .t-body { font-size: 1rem; line-height: 1.7; color: rgb(var(--ink-soft)); }
+  .t-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgb(var(--blue-deep));
+  }
+  .accent {
+    font-family: 'Cormorant Garamond', Cormorant, Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    font-size: 1.1em;
+    line-height: 0.9;
+  }
+  .accent-grad {
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-right: 0.06em;
+  }
+
+  /* Maschera per il reveal delle righe di testo */
+  .line-mask { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .line-mask > span { display: block; will-change: transform; }
+
+  /* Pulsanti */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-height: 54px;
+    padding: 0.5rem 0.55rem 0.5rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.005em;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color 0.5s var(--ease-out), border-color 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn .btn-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    transition: transform 0.6s var(--ease-out), background-color 0.4s;
+  }
+  .btn:hover .btn-icon { transform: rotate(-45deg); }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--grad-brand);
+    transform: translateY(101%);
+    border-radius: inherit;
+    transition: transform 0.6s var(--ease-out);
+  }
+  .btn:hover::before, .btn:focus-visible::before { transform: translateY(0); }
+
+  .btn-primary { background: rgb(var(--night)); color: #fff; }
+  .btn-primary .btn-icon { background: rgb(255 255 255 / 0.12); }
+  .btn-primary:hover { color: rgb(var(--night)); }
+  .btn-primary:hover .btn-icon { background: rgb(255 255 255 / 0.55); }
+
+  .btn-ghost { color: rgb(var(--ink)); border: 1px solid rgb(var(--ink) / 0.18); background: rgb(var(--paper) / 0.6); }
+  .btn-ghost .btn-icon { background: rgb(var(--mist)); }
+  .btn-ghost:hover { border-color: transparent; color: rgb(var(--night)); }
+  .btn-ghost:hover .btn-icon { background: rgb(255 255 255 / 0.6); }
+
+  .btn-light { background: #fff; color: rgb(var(--night)); }
+  .btn-light .btn-icon { background: rgb(var(--mist)); }
+  .btn-outline-light { color: #fff; border: 1px solid rgb(255 255 255 / 0.28); }
+  .btn-outline-light .btn-icon { background: rgb(255 255 255 / 0.1); }
+  .btn-outline-light:hover { color: rgb(var(--night)); border-color: transparent; }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.6s var(--ease-out);
+  }
+  .link-underline:hover, .link-underline:focus-visible { background-size: 100% 1px; }
+
+  /* Valori da inserire (dati non forniti): ben visibili ma discreti */
+  .ph {
+    color: rgb(var(--ink-soft));
+    border-bottom: 1px dashed rgb(var(--ink-soft) / 0.45);
+  }
+  .ph-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    color: rgb(var(--blue-deep));
+    background: rgb(var(--sky) / 0.12);
+    border: 1px solid rgb(var(--sky) / 0.35);
+    max-width: 100%;
+    line-height: 1.35;
+  }
+  .on-dark .ph { color: rgb(255 255 255 / 0.62); border-color: rgb(255 255 255 / 0.3); }
+  .on-dark .ph-tag { color: rgb(var(--aqua)); background: rgb(var(--aqua) / 0.08); border-color: rgb(var(--aqua) / 0.3); }
+
+  .hairline { height: 1px; background: rgb(var(--ink) / 0.1); }
+  .grad-line { height: 2px; background: var(--grad-brand); border-radius: 2px; }
+
+  .img-frame { position: relative; overflow: hidden; background: rgb(var(--mist)); }
+  .img-frame img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+@layer utilities {
+  .pt-header { padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px)); }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+/* Sfondo atmosferico della hero */
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2%, -3%, 0) scale(1.06); }
+}
+.ambient { animation: drift 18s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes cue {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(220%); }
+}
