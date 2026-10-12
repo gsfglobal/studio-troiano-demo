@@ -3,7 +3,7 @@ import { Route, Routes, useLocation, type Location } from 'react-router-dom'
 import Lenis from 'lenis'
 import { Header } from './Header'
 import { Footer } from './Footer'
-import { ToothIcon } from './ToothIcon'
+import { LogoTooth } from './LogoTooth'
 import { gsap, ScrollTrigger, isFinePointer, prefersReducedMotion, scrollToTop, setLenis } from '../lib/motion'
 import { useIsoLayoutEffect } from '../lib/hooks'
 import { markHydrated } from '../lib/reveal'
@@ -73,13 +73,14 @@ export function Layout() {
       return
     }
     busy.current = true
-    const paths = c.querySelectorAll('path')
+    const tooth = c.querySelector('svg')
     gsap
       .timeline({ onComplete: () => void (busy.current = false) })
       .set(c, { display: 'flex', yPercent: 100 })
-      .set(paths, { strokeDasharray: 1, strokeDashoffset: 1 })
+      .set(tooth, { clipPath: 'inset(0% 0% 100% 0%)', autoAlpha: 0, scale: 0.94 })
       .to(c, { yPercent: 0, duration: 0.6, ease: 'expo.inOut' })
-      .to(paths, { strokeDashoffset: 0, duration: 0.75, ease: 'power2.inOut', stagger: 0.25 }, 0.2)
+      // il dente del logo compare dall'alto verso il basso, come una pennellata
+      .to(tooth, { clipPath: 'inset(0% 0% 0% 0%)', autoAlpha: 1, scale: 1, duration: 0.8, ease: 'power2.inOut' }, 0.25)
       .add(() => {
         scrollToTop()
         setShown(location)
@@ -114,7 +115,7 @@ export function Layout() {
       </main>
       <Footer />
       <div ref={curtain} aria-hidden="true" className="fixed inset-0 z-[80] hidden items-center justify-center bg-paper">
-        <ToothIcon className="tooth-curtain h-[20vh] w-auto" strokeWidth={2.6} />
+        <LogoTooth className="h-[22vh] w-auto" />
       </div>
     </>
   )

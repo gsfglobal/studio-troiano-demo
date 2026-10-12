@@ -7,6 +7,13 @@ const FacebookGlyph = () => (
     <path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z" />
   </svg>
 )
+const InstagramGlyph = () => (
+  <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9">
+    <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" />
+    <circle cx="12" cy="12" r="4.1" />
+    <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none" />
+  </svg>
+)
 const TikTokGlyph = () => (
   <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="currentColor">
     <path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.2a6.3 6.3 0 1 0 5.3 6.2V8.6a7.6 7.6 0 0 0 4.4 1.4V6.7a4.3 4.3 0 0 1-4.4-4.2V2z" />
@@ -15,6 +22,7 @@ const TikTokGlyph = () => (
 
 const items: { key: keyof typeof studio.social; label: string; icon: ReactNode }[] = [
   { key: 'facebook', label: 'Facebook', icon: <FacebookGlyph /> },
+  { key: 'instagram', label: 'Instagram', icon: <InstagramGlyph /> },
   { key: 'tiktok', label: 'TikTok', icon: <TikTokGlyph /> },
 ]
 

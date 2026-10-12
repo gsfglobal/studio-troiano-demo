@@ -62,6 +62,7 @@ export const studio = {
   /** Profili social dello studio (vuoto = icona visibile ma non cliccabile). */
   social: {
     facebook: 'https://www.facebook.com/StudioDentisticoTroiano/',
+    instagram: 'https://www.instagram.com/studio_dentisticotroiano/',
     tiktok: 'https://www.tiktok.com/@studiodentisticotroiano',
   },
 
