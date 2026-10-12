@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { legalLine, nav, studio, telUrl, whatsappUrl } from '../config/site'
-import { ToothMark } from './ToothMark'
+import { LogoTooth } from './LogoTooth'
 import { SocialLinks } from './SocialLinks'
 import { asset } from '../lib/base'
 
@@ -8,7 +8,7 @@ export function Footer() {
   const year = new Date().getFullYear()
   return (
     <footer className="on-dark relative overflow-hidden bg-night text-white">
-      <ToothMark className="pointer-events-none absolute -right-28 -top-10 h-[130%] opacity-[0.07] md:-right-10" strokeWidth={1.2} />
+      <LogoTooth className="pointer-events-none absolute -right-20 -top-6 h-[120%] w-auto opacity-[0.06] md:-right-6" />
       <div className="wrap relative pb-10 pt-20 md:pt-28">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-4">

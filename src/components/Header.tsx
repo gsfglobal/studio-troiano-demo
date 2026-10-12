@@ -4,7 +4,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { fullAddress, nav, studio, telUrl, whatsappUrl } from '../config/site'
 import { gsap, getLenis, prefersReducedMotion } from '../lib/motion'
 import { Button } from './Button'
-import { ToothMark } from './ToothMark'
+import { LogoTooth } from './LogoTooth'
 import { asset } from '../lib/base'
 
 export function Header() {
@@ -170,7 +170,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       style={{ paddingTop: 'calc(var(--header-h) + env(safe-area-inset-top, 0px) + 12px)', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 24px)' }}
       aria-hidden={!open}
     >
-      <ToothMark className="pointer-events-none absolute -right-24 top-16 h-[70%] opacity-[0.12]" strokeWidth={1.4} />
+      <LogoTooth className="pointer-events-none absolute -right-20 top-16 h-[66%] w-auto opacity-[0.08]" />
       <nav className="wrap relative flex-1" aria-label="Menu mobile">
         <ul className="flex flex-col gap-1">
           {nav.map((n, i) => (

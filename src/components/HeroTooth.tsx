@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { ToothMark } from './ToothMark'
 import { gsap, ScrollTrigger, isFinePointer, prefersReducedMotion } from '../lib/motion'
 
 type Ring = { y: number; p: number[] }
@@ -37,25 +36,23 @@ function prepare(data: ToothData) {
 }
 
 /**
- * Apertura: il tratto del logo disegna il dente, poi il dente si "costruisce" in 3D
- * come una scansione, anello dopo anello (sezioni del modello del molare, disegnate
- * su canvas 2D: nessuna libreria 3D da scaricare).
+ * Apertura: il dente si "costruisce" in 3D come una scansione, anello dopo anello
+ * (sezioni del modello del molare, disegnate su canvas 2D: nessuna libreria 3D da scaricare).
  */
 export function HeroTooth({ delay = 0.15 }: { delay?: number }) {
   const wrap = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
-  const markWrap = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let cleanup: (() => void) | undefined
     let alive = true
-    // Si avvia quando il browser ha finito l'avvio della pagina (il tratto del logo intanto si disegna in CSS)
+    // Si avvia quando il browser ha finito l'avvio della pagina
     const go = () =>
       import('../data/tooth-rings.json').then((mod) => {
         if (alive) cleanup = start(mod.default as ToothData, mountedAt)
       })
     const mountedAt = performance.now()
-    if ('requestIdleCallback' in window) window.requestIdleCallback(() => void go(), { timeout: 900 })
+    if ('requestIdleCallback' in window) window.requestIdleCallback(() => void go(), { timeout: 600 })
     else setTimeout(go, 300)
     return () => {
       alive = false
@@ -86,7 +83,6 @@ export function HeroTooth({ delay = 0.15 }: { delay?: number }) {
       c.width = Math.round(w * dpr)
       c.height = Math.round(h * dpr)
       scale = Math.min((h * 0.84) / HEIGHT, (w * 0.86) / 1.25)
-      if (markWrap.current) markWrap.current.style.height = `${HEIGHT * scale * 0.98}px`
       draw()
     }
 
@@ -191,17 +187,9 @@ export function HeroTooth({ delay = 0.15 }: { delay?: number }) {
     const ro = new ResizeObserver(resize)
     ro.observe(el)
 
-    // Sequenza d'ingresso: il tratto del logo si disegna in CSS (subito, senza attendere
-    // JavaScript), poi il dente si costruisce anello dopo anello e il tratto svanisce
+    // Sequenza d'ingresso: il dente si costruisce anello dopo anello, come una scansione
     const tl = gsap.timeline({ delay })
-    if (!reduce) {
-      // il dente parte quando il tratto del logo (2,25 s dall'apertura) è quasi completo
-    const t0 = Math.max(0.2, 1.9 - (performance.now() - mountedAt) / 1000)
-    tl.to(st, { reveal: 1, duration: 2.6, ease: 'power2.out' }, t0)
-        .to(markWrap.current, { autoAlpha: 0, scale: 0.94, duration: 1.4, ease: 'power2.inOut' }, t0 + 0.2)
-    } else if (markWrap.current) {
-      gsap.set(markWrap.current, { autoAlpha: 0 })
-    }
+    if (!reduce) tl.to(st, { reveal: 1, duration: 2.6, ease: 'power2.out' }, Math.max(0.1, 0.5 - (performance.now() - mountedAt) / 1000))
 
     // Parallasse col puntatore (solo mouse) e reazione allo scroll
     const onMove = (e: PointerEvent) => {
@@ -259,11 +247,6 @@ export function HeroTooth({ delay = 0.15 }: { delay?: number }) {
   return (
     <div ref={wrap} className="relative h-full w-full" aria-hidden="true">
       <canvas ref={canvas} className="absolute inset-0 h-full w-full" />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div ref={markWrap} className="aspect-[450/580] h-[80%]">
-          <ToothMark drawIn className="h-full w-full" strokeWidth={2.6} />
-        </div>
-      </div>
     </div>
   )
 }

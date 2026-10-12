@@ -5,7 +5,7 @@ import { Lines } from '../components/Lines'
 import { Img } from '../components/Img'
 import { Lightbox } from '../components/Lightbox'
 import { CtaBand } from '../components/CtaBand'
-import { ToothMark } from '../components/ToothMark'
+import { LogoTooth } from '../components/LogoTooth'
 import { findGallery, gallery } from '../content/content'
 import { studio } from '../config/site'
 import { gsap } from '../lib/motion'
@@ -158,7 +158,7 @@ export default function Studio() {
               )
             })}
             <div className="col-span-2 flex flex-col justify-between gap-10 rounded-[22px] bg-mist p-7 md:col-span-8 md:p-10" data-reveal="fade">
-              <ToothMark className="h-20 w-auto self-start" strokeWidth={2} />
+              <LogoTooth className="h-20 w-auto self-start" />
               <div>
                 <p className="t-h3 max-w-[24ch]">Ti aspettiamo in Via Cardinal Prisco 90, a Boscotrecase.</p>
                 <a href={studio.address.mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 font-semibold text-ink">
