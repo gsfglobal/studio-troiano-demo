@@ -58,10 +58,15 @@ export default function Home() {
               <span className="grad-line inline-block w-8" />
               Dentista a Boscotrecase (NA)
             </p>
-            <h1 id="hero-title" className="in-lines mt-6 text-[clamp(2.35rem,1.2rem+4vw,5rem)] font-light leading-[0.98] tracking-[-0.045em]">
-              <span className="line-mask"><span>Studio Dentistico</span></span>
-              <span className="line-mask"><span>Troiano</span></span>
-              <span className="line-mask"><span><em className="accent accent-grad">a Boscotrecase</em></span></span>
+            {/* Nome dello studio + frase (come nella prima versione); la località resta nella riga sopra e nel title per Google */}
+            <h1 id="hero-title" className="in-lines mt-6">
+              <span className="line-mask text-[clamp(1.35rem,1.05rem+1.1vw,2.1rem)] font-normal leading-tight tracking-[-0.02em] text-ink-soft">
+                <span>Studio Dentistico Troiano</span>
+              </span>
+              {/* dimensione sul contenitore della riga: il margine della maschera segue il carattere e non taglia le lettere */}
+              <span className="line-mask t-display mt-3 md:mt-4"><span>Ogni sorriso</span></span>
+              <span className="line-mask t-display"><span>racconta una</span></span>
+              <span className="line-mask t-display"><span><em className="accent accent-grad">storia.</em></span></span>
             </h1>
             <p className="t-lead in-fade mt-7 max-w-[42ch]" style={{ '--d': '500ms' } as React.CSSProperties}>
               Cure odontoiatriche per adulti e bambini: prevenzione e igiene, parodontologia, implantologia, ortodonzia linguale, endodonzia e protesi.
