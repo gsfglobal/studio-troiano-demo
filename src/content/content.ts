@@ -32,7 +32,7 @@ export const treatments: Treatment[] = [
     details: [
       [
         "Il Dott. Troiano è socio della SIdP – Società Italiana di Parodontologia e Implantologia dal 2018. Lo studio è presente nell'elenco della Società per la diagnosi e la cura delle malattie parodontali, consultabile su ",
-        { label: 'www.trovaparodontologo.com', href: 'https://www.trovaparodontologo.com' },
+        { label: 'www.gengive.org/trova-parodontologo', href: 'https://www.gengive.org/trova-parodontologo/' },
         '.',
       ],
     ],
