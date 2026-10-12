@@ -53,11 +53,15 @@ export default function Privacy() {
             <a href="https://www.whatsapp.com/legal/privacy-policy-eea" target="_blank" rel="noopener noreferrer">
               informativa privacy
             </a>
-            . L'icona di Facebook apre la pagina dello studio su un servizio di Meta Platforms Ireland Limited, con la propria{' '}
+            . Le icone di Facebook e TikTok aprono i profili dello studio su servizi di Meta Platforms Ireland Limited e di TikTok Technology Limited, ciascuno con la propria informativa privacy (
             <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer">
-              informativa privacy
+              Facebook
             </a>
-            . Il collegamento «Apri in Google Maps» apre un servizio di Google, con la propria{' '}
+            ,{' '}
+            <a href="https://www.tiktok.com/legal/page/eea/privacy-policy/it" target="_blank" rel="noopener noreferrer">
+              TikTok
+            </a>
+            ). Il collegamento «Apri in Google Maps» apre un servizio di Google, con la propria{' '}
             <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
               informativa privacy
             </a>

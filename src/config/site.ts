@@ -59,8 +59,11 @@ export const studio = {
     voiceAgentId: '',
   },
 
-  /** Profili social dello studio. Facebook: incollare qui l'indirizzo della pagina (es. 'https://www.facebook.com/…'). */
-  social: { facebook: '' },
+  /** Profili social dello studio (vuoto = icona visibile ma non cliccabile). */
+  social: {
+    facebook: '', // incollare qui l'indirizzo della pagina, es. 'https://www.facebook.com/…'
+    tiktok: 'https://www.tiktok.com/@studiodentisticotroiano',
+  },
 
   agency: { name: 'Dental Go', url: 'https://dentalgo.it' },
 }
