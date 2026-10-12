@@ -67,7 +67,9 @@ for (const file of files) {
 }
 
 // Logo in versione leggera per header e footer (l'originale resta per la stampa)
-await sharp(path.join(OUT, 'logo-troiano.png')).resize({ width: 640 }).webp({ quality: 90, effort: 6 }).toFile(path.join(OUT, 'logo-troiano-640.webp'))
+for (const width of [360, 640]) {
+  await sharp(path.join(OUT, 'logo-troiano.png')).resize({ width }).webp({ quality: 88, alphaQuality: 90, effort: 6 }).toFile(path.join(OUT, `logo-troiano-${width}.webp`))
+}
 
 // Immagine di anteprima per i social (JPG 1200×630, compatibile con WhatsApp e Facebook)
 await sharp(path.join(SRC, 'team-amedeo-troiano.webp'))

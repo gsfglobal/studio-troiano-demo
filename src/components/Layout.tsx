@@ -3,7 +3,7 @@ import { Route, Routes, useLocation, type Location } from 'react-router-dom'
 import Lenis from 'lenis'
 import { Header } from './Header'
 import { Footer } from './Footer'
-import { ToothMark } from './ToothMark'
+import { ToothIcon } from './ToothIcon'
 import { gsap, ScrollTrigger, isFinePointer, prefersReducedMotion, scrollToTop, setLenis } from '../lib/motion'
 import { useIsoLayoutEffect } from '../lib/hooks'
 import { markHydrated } from '../lib/reveal'
@@ -73,14 +73,13 @@ export function Layout() {
       return
     }
     busy.current = true
-    const path = c.querySelector('path')
-    const len = path ? path.getTotalLength() : 0
+    const paths = c.querySelectorAll('path')
     gsap
       .timeline({ onComplete: () => void (busy.current = false) })
       .set(c, { display: 'flex', yPercent: 100 })
-      .set(path, { strokeDasharray: len, strokeDashoffset: len })
+      .set(paths, { strokeDasharray: 1, strokeDashoffset: 1 })
       .to(c, { yPercent: 0, duration: 0.6, ease: 'expo.inOut' })
-      .to(path, { strokeDashoffset: 0, duration: 0.7, ease: 'power2.inOut' }, 0.2)
+      .to(paths, { strokeDashoffset: 0, duration: 0.75, ease: 'power2.inOut', stagger: 0.25 }, 0.2)
       .add(() => {
         scrollToTop()
         setShown(location)
@@ -115,7 +114,7 @@ export function Layout() {
       </main>
       <Footer />
       <div ref={curtain} aria-hidden="true" className="fixed inset-0 z-[80] hidden items-center justify-center bg-paper">
-        <ToothMark className="h-[22vh] w-auto" strokeWidth={2.4} />
+        <ToothIcon className="tooth-curtain h-[20vh] w-auto" strokeWidth={2.6} />
       </div>
     </>
   )

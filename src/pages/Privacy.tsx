@@ -53,6 +53,10 @@ export default function Privacy() {
             <a href="https://www.whatsapp.com/legal/privacy-policy-eea" target="_blank" rel="noopener noreferrer">
               informativa privacy
             </a>
+            . L'icona di Facebook apre la pagina dello studio su un servizio di Meta Platforms Ireland Limited, con la propria{' '}
+            <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer">
+              informativa privacy
+            </a>
             . Il collegamento «Apri in Google Maps» apre un servizio di Google, con la propria{' '}
             <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
               informativa privacy

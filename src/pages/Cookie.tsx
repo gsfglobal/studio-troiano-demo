@@ -19,7 +19,7 @@ export default function Cookie() {
         <>
           <p>
             Questo sito <strong>non utilizza cookie di profilazione né cookie di terze parti</strong> e non installa cookie all'apertura delle
-            pagine. Non sono presenti mappe, video, pulsanti social o altri contenuti esterni incorporati, e i caratteri tipografici sono caricati
+            pagine. Non sono presenti mappe, video, widget social o altri contenuti esterni incorporati (l'icona di Facebook è un semplice collegamento), e i caratteri tipografici sono caricati
             dal sito stesso.
           </p>
           <p>
@@ -46,7 +46,7 @@ export default function Cookie() {
       title: 'Collegamenti ad altri siti',
       body: (
         <p>
-          I pulsanti e i collegamenti verso WhatsApp, Google Maps o altri siti aprono servizi esterni, che applicano le proprie regole sui cookie:
+          I pulsanti e i collegamenti verso WhatsApp, Facebook, Google Maps o altri siti aprono servizi esterni, che applicano le proprie regole sui cookie:
           ti invitiamo a consultare le rispettive informative.
         </p>
       ),

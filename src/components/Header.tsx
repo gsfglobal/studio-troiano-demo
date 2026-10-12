@@ -46,7 +46,10 @@ export function Header() {
         <div className="wrap flex items-center justify-between gap-6" style={{ height: 'var(--header-h)' }}>
           <Link to="/" className="group flex shrink-0 items-center" aria-label="Studio Dentistico Troiano, torna alla home">
             <img
-              src={asset('images/logo-troiano-640.webp')}
+              src={asset('images/logo-troiano-360.webp')}
+              srcSet={`${asset('images/logo-troiano-360.webp')} 360w, ${asset('images/logo-troiano-640.webp')} 640w`}
+              sizes="(min-width: 768px) 210px, 175px"
+              {...{ fetchpriority: 'high' }}
               alt="Studio Dentistico Troiano"
               width={640}
               height={110}

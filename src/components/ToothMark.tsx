@@ -10,10 +10,12 @@ type Props = {
   /** 'brand' = sfumatura verde-acquamarina-azzurro; altrimenti un colore CSS. */
   stroke?: 'brand' | string
   title?: string
+  /** Il tratto si disegna con un'animazione CSS appena la pagina è visibile. */
+  drawIn?: boolean
 }
 
 export const ToothMark = forwardRef<SVGPathElement, Props>(function ToothMark(
-  { className, strokeWidth = 2.2, stroke = 'brand', title },
+  { className, strokeWidth = 2.2, stroke = 'brand', title, drawIn = false },
   ref,
 ) {
   const id = useId().replace(/:/g, '')
@@ -33,6 +35,8 @@ export const ToothMark = forwardRef<SVGPathElement, Props>(function ToothMark(
       <path
         ref={ref}
         d={TOOTH_PATH}
+        pathLength={drawIn ? 1 : undefined}
+        className={drawIn ? 'draw-in' : undefined}
         stroke={stroke === 'brand' ? `url(#tg-${id})` : stroke}
         strokeWidth={strokeWidth}
         strokeLinecap="round"

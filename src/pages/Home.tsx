@@ -5,6 +5,7 @@ import { Button } from '../components/Button'
 import { ContactButtons } from '../components/ContactButtons'
 import { Lines } from '../components/Lines'
 import { Img } from '../components/Img'
+import { HeroTooth } from '../components/HeroTooth'
 import { Gallery } from '../components/Gallery'
 import { Journey } from '../components/Journey'
 import { CtaBand } from '../components/CtaBand'
@@ -47,24 +48,17 @@ export default function Home() {
           <div className="ambient absolute -right-[12%] top-[2%] h-[62vmax] w-[62vmax] rounded-full blur-3xl" style={{ background: 'radial-gradient(closest-side, rgb(var(--sky) / 0.16), transparent)' }} />
           <div className="ambient absolute -left-[18%] bottom-[-20%] h-[50vmax] w-[50vmax] rounded-full blur-3xl [animation-delay:-6s]" style={{ background: 'radial-gradient(closest-side, rgb(var(--green) / 0.12), transparent)' }} />
         </div>
-        <div className="wrap pt-header grid gap-9 pb-20 lg:min-h-[100svh] lg:grid-cols-12 lg:items-center lg:gap-10 lg:pb-14">
-          <figure className="order-1 mt-4 lg:order-2 lg:col-span-7 lg:mt-0">
-            <div className="in-media img-frame aspect-square overflow-hidden rounded-[28px] sm:aspect-[16/10] lg:aspect-[16/10]">
-              <Img
-                name={director.photo}
-                alt={director.alt}
-                eager
-                sizes="(min-width: 1440px) 780px, (min-width: 1024px) 56vw, 100vw"
-                className="object-[75%_center] sm:object-center"
-              />
-            </div>
-          </figure>
-          <div className="relative z-10 order-2 lg:order-1 lg:col-span-5">
+        <div className="wrap pt-header grid min-h-[100svh] grid-rows-[auto_1fr] gap-2 pb-16 lg:grid-cols-12 lg:grid-rows-1 lg:items-center lg:gap-8 lg:pb-10">
+          {/* Il tratto del logo disegna il dente, poi il dente si costruisce in 3D */}
+          <div className="relative order-1 h-[34svh] min-h-[220px] md:h-[42svh] lg:order-2 lg:col-span-6 lg:h-[80svh]">
+            <HeroTooth />
+          </div>
+          <div className="relative z-10 order-2 lg:order-1 lg:col-span-6">
             <p className="t-eyebrow in-fade flex items-center gap-3" style={{ '--d': '150ms' } as React.CSSProperties}>
               <span className="grad-line inline-block w-8" />
               Dentista a Boscotrecase (NA)
             </p>
-            <h1 id="hero-title" className="in-lines mt-6 text-[clamp(2.35rem,1.3rem+4.3vw,5.4rem)] font-light leading-[0.98] tracking-[-0.045em]">
+            <h1 id="hero-title" className="in-lines mt-6 text-[clamp(2.35rem,1.2rem+4vw,5rem)] font-light leading-[0.98] tracking-[-0.045em]">
               <span className="line-mask"><span>Studio Dentistico</span></span>
               <span className="line-mask"><span>Troiano</span></span>
               <span className="line-mask"><span><em className="accent accent-grad">a Boscotrecase</em></span></span>
@@ -84,6 +78,14 @@ export default function Home() {
                 </span>
               </p>
             </div>
+          </div>
+        </div>
+        <div aria-hidden="true" className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 lg:block">
+          <div className="in-fade flex flex-col items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-ink-soft" style={{ '--d': '1400ms' } as React.CSSProperties}>
+            Scorri
+            <span className="relative h-10 w-px overflow-hidden bg-ink/10">
+              <span className="absolute inset-x-0 top-0 h-1/2 animate-[cue_2.2s_ease-in-out_infinite]" style={{ background: 'var(--grad-brand)' }} />
+            </span>
           </div>
         </div>
       </section>

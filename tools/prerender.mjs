@@ -56,6 +56,7 @@ const dentist = {
   openingHoursSpecification: studio.hours.flatMap((h) =>
     (h.schema ?? []).map((s) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: s.days, opens: s.opens, closes: s.closes })),
   ),
+  ...(studio.social?.facebook ? { sameAs: [studio.social.facebook] } : {}),
   employee: [{ '@type': 'Person', name: 'Amedeo Troiano', honorificPrefix: 'Dott.', jobTitle: 'Odontoiatra, titolare e direttore sanitario' }],
 }
 

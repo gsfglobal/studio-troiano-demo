@@ -59,6 +59,9 @@ export const studio = {
     voiceAgentId: '',
   },
 
+  /** Profili social dello studio. Facebook: incollare qui l'indirizzo della pagina (es. 'https://www.facebook.com/…'). */
+  social: { facebook: '' },
+
   agency: { name: 'Dental Go', url: 'https://dentalgo.it' },
 }
 

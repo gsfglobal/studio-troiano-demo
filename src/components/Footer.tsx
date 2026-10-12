@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { legalLine, nav, studio, telUrl, whatsappUrl } from '../config/site'
 import { ToothMark } from './ToothMark'
+import { SocialLinks } from './SocialLinks'
 import { asset } from '../lib/base'
 
 export function Footer() {
@@ -22,6 +23,7 @@ export function Footer() {
             <p className="mt-8 max-w-[34ch] text-[1.02rem] leading-relaxed text-white/65">
               Studio odontoiatrico a Boscotrecase (NA).
             </p>
+            <SocialLinks />
           </div>
 
           <div className="grid gap-10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-4">
