@@ -13,7 +13,7 @@ statico**: ogni pagina è un file HTML completo (Google legge i contenuti senza 
 - Testi informativi conformi alla comunicazione sanitaria (L. 145/2018, c. 525, come modificato
   dalla L. 103/2023): nessuna promessa, sconto, superlativo o marchio di dispositivi.
 
-La versione demo approvata dal dottore è salvata nel tag `demo-v1` ed è ancora online su
+La versione demo approvata dal dottore è salvata nel ramo `demo-v1` ed è ancora online su
 GitHub Pages (ramo `gh-pages`).
 
 ## Comandi

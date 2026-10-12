@@ -32,8 +32,8 @@ export default function Team() {
         name={director.photo}
         alt={director.alt}
         maxWidth={1320}
-        mobilePosition="76% center"
-        caption="La parete dello studio, con la frase di Charlie Chaplin"
+        mobilePosition="75% center"
+        caption="La parete dello studio, con la frase attribuita a Charlie Chaplin"
       />
 
       <section aria-labelledby="director-title" className="bg-paper">

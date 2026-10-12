@@ -19,7 +19,7 @@ export function Footer() {
               loading="lazy"
             />
             <p className="mt-8 max-w-[34ch] text-[1.02rem] leading-relaxed text-white/65">
-              Un luogo dove ogni sorriso viene ascoltato prima di essere curato.
+              Studio odontoiatrico a Boscotrecase (NA).
             </p>
           </div>
 
@@ -83,7 +83,7 @@ export function Footer() {
         <div className="mt-8 grid gap-6 text-[0.82rem] leading-relaxed text-white/60 lg:grid-cols-12">
           <div className="grid gap-1.5 lg:col-span-8">
             <p>{legalLine}</p>
-            <p>Le informazioni presenti nel sito hanno carattere informativo e non sostituiscono la visita.</p>
+            <p>I contenuti del sito hanno carattere informativo e non sostituiscono la visita.</p>
           </div>
           <div className="flex flex-col gap-1.5 lg:col-span-4 lg:items-end lg:text-right">
             <p>

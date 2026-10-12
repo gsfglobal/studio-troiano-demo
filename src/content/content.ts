@@ -93,7 +93,7 @@ export const treatments: Treatment[] = [
   {
     id: 'endodonzia',
     title: 'Endodonzia',
-    short: 'Curare il dente dall’interno',
+    short: "Curare il dente dall'interno",
     description:
       "L'endodonzia è la cura dei canali radicolari (la cosiddetta devitalizzazione), necessaria quando la polpa del dente è infiammata o infetta. L'obiettivo è conservare il dente naturale.",
     details: [["Il Dott. Troiano ha conseguito il perfezionamento in Endodonzia nel 2001 all'Università Federico II di Napoli."]],
@@ -110,7 +110,7 @@ export const treatments: Treatment[] = [
     short: 'Ricostruire e sostituire',
     description:
       "La protesi dentaria ricostruisce i denti danneggiati o sostituisce quelli mancanti, con corone, ponti, protesi su impianti o rimovibili. L'impronta può essere rilevata in digitale con lo scanner intraorale. La soluzione si sceglie insieme dopo la visita.",
-    expect: ['Impronta digitale con scanner intraorale', 'Corone, ponti, protesi fisse o rimovibili', 'Soluzione scelta insieme dopo la visita'],
+    expect: ['Impronta digitale con scanner intraorale', 'Corone, ponti, protesi su impianti o rimovibili', 'Soluzione scelta insieme dopo la visita'],
     steps: [
       { title: 'Valutazione', text: 'Visita ed esami per individuare la soluzione indicata nel tuo caso.' },
       { title: 'Progetto', text: "Rilevazione dell'impronta e scelta di forma e colore dei denti." },
@@ -255,7 +255,7 @@ const allTeam: TeamMember[] = [
 export const team = allTeam.filter((m) => m.name && m.photo in images)
 
 export const journey = [
-  { title: 'Il primo contatto', text: 'Chiami lo studio o scrivi su WhatsApp: scegliamo insieme il giorno e l’orario più comodi.' },
+  { title: 'Il primo contatto', text: "Chiami lo studio o scrivi su WhatsApp: scegliamo insieme il giorno e l'orario più comodi." },
   { title: 'La prima visita', text: 'Ascolto, visita ed eventuali esami. Ti spieghiamo cosa vediamo, con parole semplici.' },
   { title: 'Il piano di cura', text: 'Ricevi un piano scritto con fasi, tempi e costi, da valutare con calma prima di decidere.' },
   { title: 'Nel tempo', text: 'Controlli e igiene periodica per prendersi cura del sorriso anche dopo le cure.' },

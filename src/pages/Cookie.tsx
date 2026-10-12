@@ -34,7 +34,7 @@ export default function Cookie() {
       ),
     },
     {
-      title: 'Perché non c’è il banner dei cookie',
+      title: "Perché non c'è il banner dei cookie",
       body: (
         <p>
           Il banner di consenso serve solo quando un sito usa cookie diversi da quelli tecnici. Se in futuro venissero aggiunti servizi esterni

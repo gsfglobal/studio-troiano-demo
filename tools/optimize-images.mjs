@@ -20,8 +20,11 @@ const TARGETS = [480, 800, 1600]
 const QUALITY = 78
 /** Ritagli applicati alla sorgente: parte alta dell'autoclave (in basso ci sono contenitori da non mostrare). */
 const CROPS = { 'studio-autoclave': { keepTop: 0.68 } }
-/** Zone sfocate: le scritte sullo schermo del laser (immagine di catalogo) non devono leggersi. */
-const BLURS = { 'tech-laser-diodi': { left: 378, top: 402, width: 450, height: 286, sigma: 16 } }
+/** Zone sfocate: scritte e marchi che non devono leggersi (schermo del laser, marca dell'autoclave). */
+const BLURS = {
+  'tech-laser-diodi': { left: 378, top: 402, width: 450, height: 286, sigma: 16 },
+  'studio-autoclave': { left: 556, top: 752, width: 172, height: 56, sigma: 5 },
+}
 
 const load = async (file, name) => {
   let img = sharp(path.join(SRC, file))

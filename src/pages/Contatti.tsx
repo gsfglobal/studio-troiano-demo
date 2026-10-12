@@ -80,7 +80,7 @@ export default function Contatti() {
                 <div className="flex items-start gap-3">
                   <MapPin size={20} strokeWidth={1.6} className="mt-0.5 shrink-0 text-blue-deep" aria-hidden="true" />
                   <div>
-                    <h2 className="text-[1.15rem] font-semibold tracking-[-0.01em]">Dove siamo</h2>
+                    <h2 className="text-[1.15rem] font-semibold tracking-[-0.01em]">Come raggiungerci</h2>
                     <address className="mt-1 not-italic text-ink-soft">{fullAddress}</address>
                   </div>
                 </div>

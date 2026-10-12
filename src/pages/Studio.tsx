@@ -50,7 +50,7 @@ export default function Studio() {
             <p className="t-eyebrow" data-reveal="fade">La sala operativa</p>
             <Lines as="h2" id="room-title" className="t-h2 mt-5" lines={['Luce, ordine', <>e <em className="accent">calma.</em></>]} />
             <p className="t-lead mt-7 max-w-[44ch]" data-reveal="fade">
-              La sala operativa è luminosa e ordinata: riunito, lampada e strumenti sono disposti perché ogni seduta si svolga con calma, spiegando passo per passo cosa si sta facendo.
+              La sala operativa è luminosa e ordinata: riunito, lampada e strumenti sono disposti perché ogni seduta si svolga con calma. Durante la seduta ti spieghiamo passo per passo cosa si sta facendo.
             </p>
           </div>
         </div>

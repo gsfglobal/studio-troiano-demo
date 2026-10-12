@@ -52,7 +52,7 @@ export default function Trattamenti() {
     <div ref={root}>
       <PageHero
         eyebrow="Trattamenti"
-        lines={['Cure su misura,', <>spiegate con <em className="accent accent-grad">chiarezza.</em></>]}
+        lines={['I trattamenti,', <>spiegati con <em className="accent accent-grad">chiarezza.</em></>]}
         lead="Ogni trattamento inizia da una visita e da un confronto sulle possibili soluzioni, con i tempi giusti per decidere."
       />
 

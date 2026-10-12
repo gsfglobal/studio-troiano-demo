@@ -91,7 +91,7 @@ export default function Privacy() {
       ),
     },
     {
-      title: 'Trasferimento dei dati fuori dall’Unione europea',
+      title: "Trasferimento dei dati fuori dall'Unione europea",
       body: (
         <p>
           Cloudflare, Inc. ha sede negli Stati Uniti. L'eventuale trasferimento dei dati di navigazione avviene con le garanzie previste dal
