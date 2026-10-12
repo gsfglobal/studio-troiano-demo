@@ -54,12 +54,8 @@ export default function Home() {
             <HeroTooth />
           </div>
           <div className="relative z-10 order-2 lg:order-1 lg:col-span-6">
-            <p className="t-eyebrow in-fade flex items-center gap-3" style={{ '--d': '150ms' } as React.CSSProperties}>
-              <span className="grad-line inline-block w-8" />
-              Dentista a Boscotrecase (NA)
-            </p>
-            {/* Nome dello studio + frase (come nella prima versione); la località resta nella riga sopra e nel title per Google */}
-            <h1 id="hero-title" className="in-lines mt-6">
+            {/* Nome dello studio + frase (come nella prima versione); la località resta nel title, nella description e nei dati strutturati per Google */}
+            <h1 id="hero-title" className="in-lines">
               <span className="line-mask text-[clamp(1.35rem,1.05rem+1.1vw,2.1rem)] font-normal leading-tight tracking-[-0.02em] text-ink-soft">
                 <span>Studio Dentistico Troiano</span>
               </span>
