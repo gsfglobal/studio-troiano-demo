@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { legalLine, nav, studio, telUrl, whatsappUrl } from '../config/site'
 import { ToothMark } from './ToothMark'
+import { asset } from '../lib/base'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -11,7 +12,7 @@ export function Footer() {
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <img
-              src="/images/logo-troiano-640.webp"
+              src={asset('images/logo-troiano-640.webp')}
               alt="Studio Dentistico Troiano"
               width={640}
               height={110}

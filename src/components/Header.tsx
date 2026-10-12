@@ -5,6 +5,7 @@ import { fullAddress, nav, studio, telUrl, whatsappUrl } from '../config/site'
 import { gsap, getLenis, prefersReducedMotion } from '../lib/motion'
 import { Button } from './Button'
 import { ToothMark } from './ToothMark'
+import { asset } from '../lib/base'
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -45,7 +46,7 @@ export function Header() {
         <div className="wrap flex items-center justify-between gap-6" style={{ height: 'var(--header-h)' }}>
           <Link to="/" className="group flex shrink-0 items-center" aria-label="Studio Dentistico Troiano, torna alla home">
             <img
-              src="/images/logo-troiano-640.webp"
+              src={asset('images/logo-troiano-640.webp')}
               alt="Studio Dentistico Troiano"
               width={640}
               height={110}

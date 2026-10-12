@@ -34,7 +34,7 @@ http
       res.writeHead(308, { location: p.replace(/(index)?\.html$/, '') || '/' })
       return res.end()
     }
-    if (p === '/') file = path.join(DIST, 'index.html')
+    if (p.endsWith('/')) file = path.join(DIST, p, 'index.html')
     else if (!(await exists(file)) && (await exists(file + '.html'))) file += '.html'
     else if (!(await exists(file))) {
       file = path.join(DIST, '404.html')

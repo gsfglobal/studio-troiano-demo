@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import images from '../content/images.json'
 import type { ImageName } from '../content/content'
+import { asset } from '../lib/base'
 
 type Props = {
   name: ImageName
@@ -18,13 +19,13 @@ type Props = {
 export const imgSrc = (name: ImageName, width?: number) => {
   const m = images[name]
   const w = width ? m.widths.find((x) => x >= width) ?? m.widths[m.widths.length - 1] : m.widths[m.widths.length - 1]
-  return `/images/${name}-${w}.webp`
+  return asset(`images/${name}-${w}.webp`)
 }
 
 /** Foto responsive: WebP in più larghezze con srcset, dimensioni dichiarate (niente salti di layout). */
 export function Img({ name, alt, sizes = '100vw', className, style, eager = false, position, ...rest }: Props) {
   const m = images[name]
-  const srcSet = m.widths.map((w) => `/images/${name}-${w}.webp ${w}w`).join(', ')
+  const srcSet = m.widths.map((w) => `${asset(`images/${name}-${w}.webp`)} ${w}w`).join(', ')
   return (
     <img
       src={imgSrc(name, 800)}

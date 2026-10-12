@@ -12,12 +12,13 @@ import { pathToFileURL } from 'node:url'
 
 const DIST = path.resolve('dist')
 const server = await import(pathToFileURL(path.resolve('dist-server/entry-server.js')).href)
-const { render, pages, notFoundMeta, studio, SITE_URL } = server
+const { render, pages, notFoundMeta, studio, SITE_URL, BASE } = server
+const PREVIEW = BASE !== '/' // anteprima in sottocartella: mai indicizzata
 
 // Il CSS (circa 9 KB compresso) viene incorporato nella pagina: un passaggio in meno prima della prima visualizzazione
 let template = await readFile(path.join(DIST, 'index.html'), 'utf8')
-for (const m of [...template.matchAll(/<link rel="stylesheet" crossorigin href="(\/assets\/[^"]+\.css)">/g)]) {
-  const css = await readFile(path.join(DIST, m[1]), 'utf8')
+for (const m of [...template.matchAll(/<link rel="stylesheet" crossorigin href="([^"]+\.css)">/g)]) {
+  const css = await readFile(path.join(DIST, 'assets', path.basename(m[1])), 'utf8')
   template = template.replace(m[0], `<style>${css}</style>`)
 }
 const assets = await readdir(path.join(DIST, 'assets'))
@@ -61,7 +62,8 @@ const dentist = {
 function head(meta, { notFound = false } = {}) {
   const url = urlFor(meta.path)
   const tags = [
-    notFound ? '<meta name="robots" content="noindex" />' : `<link rel="canonical" href="${url}" />`,
+    notFound || PREVIEW ? '<meta name="robots" content="noindex, nofollow" />' : '',
+    notFound ? '' : `<link rel="canonical" href="${url}" />`,
     '<meta property="og:type" content="website" />',
     '<meta property="og:locale" content="it_IT" />',
     `<meta property="og:site_name" content="${esc(studio.name)}" />`,
@@ -73,7 +75,7 @@ function head(meta, { notFound = false } = {}) {
     '<meta property="og:image:height" content="630" />',
     `<meta property="og:image:alt" content="${esc('Il Dott. Amedeo Troiano nello Studio Dentistico Troiano')}" />`,
     '<meta name="twitter:card" content="summary_large_image" />',
-    ...fonts.map((f) => `<link rel="preload" href="/assets/${f}" as="font" type="font/woff2" crossorigin />`),
+    ...fonts.map((f) => `<link rel="preload" href="${BASE}assets/${f}" as="font" type="font/woff2" crossorigin />`),
     meta.path === '/' || meta.path === '/contatti' ? ldJson(dentist) : '',
   ]
   return tags.filter(Boolean).join('\n    ')
@@ -90,10 +92,10 @@ function page(meta, html, opts) {
 const written = []
 for (const meta of pages) {
   const file = meta.path === '/' ? 'index.html' : `${meta.path.slice(1)}.html`
-  await writeFile(path.join(DIST, file), page(meta, render(meta.path)))
+  await writeFile(path.join(DIST, file), page(meta, render(BASE.replace(/\/$/, '') + meta.path)))
   written.push(file)
 }
-await writeFile(path.join(DIST, '404.html'), page(notFoundMeta, render('/pagina-non-trovata'), { notFound: true }))
+await writeFile(path.join(DIST, '404.html'), page(notFoundMeta, render(BASE.replace(/\/$/, '') + '/pagina-non-trovata'), { notFound: true }))
 written.push('404.html')
 
 // sitemap.xml e robots.txt
