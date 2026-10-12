@@ -172,8 +172,8 @@ export default function Home() {
             </div>
           </div>
           <ul className="mt-14 grid gap-5 sm:grid-cols-2 md:mt-20 lg:grid-cols-4 lg:gap-6" data-reveal="stagger">
-            {technologies.map((t, i) => (
-              <li key={t.id} className={i % 2 ? 'lg:mt-14' : ''}>
+            {technologies.map((t) => (
+              <li key={t.id}>
                 <Link to={`/tecnologie#${t.id}`} className="group block">
                   <div className={`img-frame aspect-square rounded-[24px] ${t.tone === 'dark' ? '!bg-black' : '!bg-white ring-1 ring-inset ring-ink/10'}`}>
                     <Img name={t.image} alt={t.alt} sizes="(min-width: 1024px) 22vw, (min-width: 640px) 46vw, 100vw" className="!object-contain p-3 transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.05]" />

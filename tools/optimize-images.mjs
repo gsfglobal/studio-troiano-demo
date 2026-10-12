@@ -33,6 +33,8 @@ const load = async (file, name) => {
     const { width, height } = await img.metadata()
     img = sharp(await img.extract({ left: 0, top: 0, width, height: Math.round(height * crop.keepTop) }).png().toBuffer())
   }
+  // Foto delle tecnologie: sfondo portato al bianco pieno, uguale alle cornici
+  if (name.startsWith('tech-')) img = sharp(await img.linear(255 / 247, 0).png().toBuffer())
   const b = BLURS[name]
   if (b) {
     const base = await img.png().toBuffer()

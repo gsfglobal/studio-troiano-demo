@@ -144,7 +144,7 @@ export type Technology = {
   text: string
   image: ImageName
   alt: string
-  /** Colore dello sfondo della foto, per incorniciarla senza stacchi. */
+  /** Colore dello sfondo della foto (oggi tutte su bianco), per incorniciarla senza stacchi. */
   tone: 'dark' | 'light'
   related: TreatmentId[]
 }
@@ -158,7 +158,7 @@ export const technologies: Technology[] = [
     text: "Rileva l'impronta dei denti in digitale con una piccola telecamera, al posto delle paste tradizionali. Il modello 3D compare subito sullo schermo e si usa per progettare protesi, apparecchi ortodontici e interventi.",
     image: 'tech-scanner-intraorale',
     alt: 'Scanner intraorale: manipolo bianco appoggiato sul suo supporto, su sfondo nero',
-    tone: 'dark',
+    tone: 'light',
     related: ['protesi', 'ortodonzia', 'implantologia'],
   },
   {
@@ -184,11 +184,11 @@ export const technologies: Technology[] = [
   {
     id: 'chirurgia-computer-guidata',
     title: 'Chirurgia implantare computer guidata',
-    short: "L'intervento progettato in digitale",
+    short: 'Progettazione digitale',
     text: "L'intervento viene progettato in digitale e guidato da una mascherina chirurgica su misura. Nei casi indicati consente di inserire l'impianto senza incisioni né punti di sutura.",
     image: 'tech-chirurgia-guidata',
     alt: "Illustrazione 3D di una mascherina chirurgica trasparente su un modello dell'arcata, con il manipolo che guida l'inserimento dell'impianto",
-    tone: 'dark',
+    tone: 'light',
     related: ['implantologia'],
   },
 ]
