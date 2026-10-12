@@ -4,10 +4,32 @@ import { Lines } from '../components/Lines'
 import { Img } from '../components/Img'
 import { ExpandImage } from '../components/ExpandImage'
 import { CtaBand } from '../components/CtaBand'
-import { director, team, type ImageName } from '../content/content'
+import { LogoTooth } from '../components/LogoTooth'
+import { director, hasPhoto, teamGroup, type ImageName, type TeamMember } from '../content/content'
 import { gsap } from '../lib/motion'
 import { useIsoLayoutEffect } from '../lib/hooks'
 import { setupReveals } from '../lib/reveal'
+import { IS_PREVIEW } from '../lib/base'
+
+// Nell'anteprima per il dottore compaiono anche i posti in attesa di foto; online solo le schede complete
+const clinici = teamGroup('clinici', IS_PREVIEW)
+const assistenza = teamGroup('assistenza', IS_PREVIEW)
+
+function MemberPhoto({ m, className, sizes }: { m: TeamMember; className: string; sizes: string }) {
+  if (hasPhoto(m)) {
+    return (
+      <div className={`img-frame aspect-[4/5] ${className}`}>
+        <Img name={m.photo as ImageName} alt={m.alt} position={m.objectPosition} sizes={sizes} />
+      </div>
+    )
+  }
+  return (
+    <div className={`img-frame flex aspect-[4/5] flex-col items-center justify-center gap-4 ${className}`}>
+      <LogoTooth className="h-[28%] w-auto opacity-25" />
+      <span className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ink-soft">Foto in arrivo</span>
+    </div>
+  )
+}
 
 export default function Team() {
   const root = useRef<HTMLDivElement>(null)
@@ -58,26 +80,43 @@ export default function Team() {
         </div>
       </section>
 
-      {/* Le altre persone del team: compaiono solo con nome e foto */}
-      {team.length ? (
+      {/* Subito sotto il dottore: le dottoresse, con foto grandi (le schede compaiono solo con nome e foto) */}
+      {clinici.length ? (
         <section aria-labelledby="team-title" className="bg-mist">
           <div className="wrap py-24 md:py-32">
-            <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-7">
-                <p className="t-eyebrow" data-reveal="fade">Con il Dott. Troiano</p>
-                <Lines as="h2" id="team-title" className="t-h2 mt-5" lines={['Un lavoro', <>di <em className="accent">squadra.</em></>]} />
-              </div>
-            </div>
-            <ul className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8" data-reveal="stagger">
-              {team.map((m) => (
+            <p className="t-eyebrow" data-reveal="fade">Con il Dott. Troiano</p>
+            <Lines as="h2" id="team-title" className="t-h2 mt-5" lines={['Un lavoro', <>di <em className="accent">squadra.</em></>]} />
+            <ul className="mt-14 grid gap-12 sm:grid-cols-2 lg:max-w-[1040px] lg:gap-14" data-reveal="stagger">
+              {clinici.map((m) => (
                 <li key={m.id}>
                   <article aria-labelledby={`m-${m.id}`}>
-                    <div className="img-frame aspect-[4/5] rounded-[26px] !bg-paper">
-                      <Img name={m.photo as ImageName} alt={m.alt} position={m.objectPosition} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 100vw" />
-                    </div>
+                    <MemberPhoto m={m} className="rounded-[26px] !bg-paper" sizes="(min-width: 1024px) 500px, (min-width: 640px) 46vw, 100vw" />
                     <p className="mt-6 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-blue-deep">{m.role}</p>
                     <h3 id={`m-${m.id}`} className="t-h3 mt-2">{m.name}</h3>
-                    {m.text ? <p className="t-body mt-3 max-w-[40ch]">{m.text}</p> : null}
+                    {m.text ? <p className="t-body mt-3 max-w-[44ch]">{m.text}</p> : null}
+                  </article>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
+      {/* Il nostro team di assistenza: segreteria e assistenti, foto più piccole */}
+      {assistenza.length ? (
+        <section aria-labelledby="assist-title" className="bg-paper">
+          <div className="wrap py-24 md:py-32">
+            <p className="t-eyebrow" data-reveal="fade">Segreteria e assistenti</p>
+            <Lines as="h2" id="assist-title" className="t-h2 mt-5" lines={['Il nostro team', <>di <em className="accent">assistenza.</em></>]} />
+            <ul className="mt-14 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:max-w-[900px] lg:gap-x-8" data-reveal="stagger">
+              {assistenza.map((m) => (
+                <li key={m.id}>
+                  <article aria-labelledby={`m-${m.id}`}>
+                    <MemberPhoto m={m} className="rounded-[20px] !bg-mist" sizes="(min-width: 1024px) 280px, (min-width: 640px) 30vw, 46vw" />
+                    <p className="mt-4 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-blue-deep">{m.role}</p>
+                    <h3 id={`m-${m.id}`} className="mt-1.5 text-[1.08rem] font-medium leading-snug tracking-[-0.01em] text-ink">
+                      {m.name || 'Nome in arrivo'}
+                    </h3>
                   </article>
                 </li>
               ))}

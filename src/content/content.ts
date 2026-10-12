@@ -195,6 +195,8 @@ export const technologies: Technology[] = [
 
 export type TeamMember = {
   id: string
+  /** 'clinici': subito sotto il Dott. Troiano, foto grandi. 'assistenza': «Il nostro team di assistenza», foto più piccole. */
+  group: 'clinici' | 'assistenza'
   name: string
   role: string
   text: string
@@ -219,9 +221,11 @@ export const director = {
   ],
 }
 
+// Ordine indicato dal dottore: Romanucci e Scarfato sotto di lui; poi segretaria, assistente, assistente.
 const allTeam: TeamMember[] = [
   {
     id: 'carla-romanucci',
+    group: 'clinici',
     name: 'Dott.ssa Carla Romanucci',
     role: 'Ortodonzia',
     text: "Si occupa delle terapie ortodontiche dello studio, con particolare attenzione all'ortodonzia linguale.",
@@ -231,14 +235,16 @@ const allTeam: TeamMember[] = [
   },
   {
     id: 'maria-scarfato',
+    group: 'clinici',
     name: 'Dott.ssa Maria Scarfato',
-    role: 'Igiene dentale',
-    text: 'Igienista dentale, esegue le sedute di igiene professionale con la tecnica GBT e segue i pazienti nei richiami periodici di prevenzione.',
+    role: 'Igienista dentale',
+    text: 'Esegue le sedute di igiene professionale con la tecnica GBT e segue i pazienti nei richiami periodici di prevenzione.',
     photo: 'team-maria-scarfato',
     alt: 'Ritratto della Dott.ssa Maria Scarfato, igienista dentale',
   },
   {
     id: 'nunzia-santarpia',
+    group: 'assistenza',
     name: 'Nunzia Santarpia',
     role: 'Segreteria',
     text: 'È il punto di riferimento per appuntamenti e informazioni.',
@@ -246,13 +252,33 @@ const allTeam: TeamMember[] = [
     alt: 'Nunzia Santarpia, sorridente, alla scrivania della segreteria',
     objectPosition: 'center 20%',
   },
-  // Assistenti alla poltrona: compilare nome e foto quando arrivano (team-nome-cognome.webp)
-  { id: 'assistente-1', name: '', role: 'Assistente alla poltrona', text: '', photo: 'team-assistente-1', alt: '' },
-  { id: 'assistente-2', name: '', role: 'Assistente alla poltrona', text: '', photo: 'team-assistente-2', alt: '' },
+  {
+    id: 'stefania-marasco',
+    group: 'assistenza',
+    name: 'Stefania Marasco',
+    role: 'Assistente',
+    text: '',
+    photo: 'team-stefania-marasco',
+    alt: 'Stefania Marasco, assistente dello studio, sorridente, con la maglia nera dello Studio Dentistico Troiano',
+    objectPosition: 'center 25%',
+  },
+  // Seconda assistente: compilare nome e foto quando arrivano (assets/foto/team-nome-cognome.webp)
+  { id: 'assistente-2', group: 'assistenza', name: '', role: 'Assistente', text: '', photo: 'team-assistente-2', alt: '' },
 ]
 
+const isReady = (m: TeamMember) => Boolean(m.name) && m.photo in images
+
 /** Solo le persone con nome e foto: online nessun riquadro vuoto. */
-export const team = allTeam.filter((m) => m.name && m.photo in images)
+export const team = allTeam.filter(isReady)
+
+/**
+ * Persone di un gruppo. Con `withPending` (solo nell'anteprima per il dottore) include anche
+ * i posti in attesa di foto, così si vede la disposizione finale; online restano solo le schede complete.
+ */
+export const teamGroup = (group: TeamMember['group'], withPending = false) =>
+  allTeam.filter((m) => m.group === group && (withPending || isReady(m)))
+
+export const hasPhoto = (m: TeamMember) => m.photo in images
 
 export const journey = [
   { title: 'Il primo contatto', text: "Chiami lo studio o scrivi su WhatsApp: scegliamo insieme il giorno e l'orario più comodi." },
