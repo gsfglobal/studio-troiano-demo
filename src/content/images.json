@@ -1,0 +1,110 @@
+{
+  "studio-autoclave": {
+    "w": 900,
+    "h": 1088,
+    "widths": [
+      480,
+      800,
+      900
+    ]
+  },
+  "studio-sala-operativa": {
+    "w": 900,
+    "h": 1600,
+    "widths": [
+      480,
+      800,
+      900
+    ]
+  },
+  "studio-sterilizzazione": {
+    "w": 1600,
+    "h": 900,
+    "widths": [
+      480,
+      800,
+      1600
+    ]
+  },
+  "studio-strumentario-chirurgico": {
+    "w": 900,
+    "h": 1600,
+    "widths": [
+      480,
+      800,
+      900
+    ]
+  },
+  "studio-ufficio": {
+    "w": 900,
+    "h": 1600,
+    "widths": [
+      480,
+      800,
+      900
+    ]
+  },
+  "team-amedeo-troiano": {
+    "w": 1600,
+    "h": 909,
+    "widths": [
+      480,
+      800,
+      1600
+    ]
+  },
+  "team-carla-romanucci": {
+    "w": 1254,
+    "h": 1254,
+    "widths": [
+      480,
+      800,
+      1254
+    ]
+  },
+  "team-nunzia-santarpia": {
+    "w": 1024,
+    "h": 1536,
+    "widths": [
+      480,
+      800,
+      1024
+    ]
+  },
+  "tech-chirurgia-guidata": {
+    "w": 1254,
+    "h": 1254,
+    "widths": [
+      480,
+      800,
+      1254
+    ]
+  },
+  "tech-laser-diodi": {
+    "w": 1254,
+    "h": 1254,
+    "widths": [
+      480,
+      800,
+      1254
+    ]
+  },
+  "tech-piezochirurgia": {
+    "w": 1448,
+    "h": 1086,
+    "widths": [
+      480,
+      800,
+      1448
+    ]
+  },
+  "tech-scanner-intraorale": {
+    "w": 1448,
+    "h": 1086,
+    "widths": [
+      480,
+      800,
+      1448
+    ]
+  }
+}

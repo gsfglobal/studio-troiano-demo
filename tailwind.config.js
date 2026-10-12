@@ -20,7 +20,7 @@ export default {
         'night-2': 'rgb(var(--night-2) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['Manrope', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['"Manrope Variable"', 'Manrope', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
         serif: ['"Cormorant Garamond"', 'Cormorant', 'Georgia', 'Times New Roman', 'serif'],
       },
       maxWidth: { site: '1440px' },

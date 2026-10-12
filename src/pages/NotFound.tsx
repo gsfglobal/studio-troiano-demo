@@ -1,8 +1,6 @@
 import { Button } from '../components/Button'
-import { usePageMeta } from '../lib/usePageMeta'
 
 export default function NotFound() {
-  usePageMeta('Pagina non trovata · Studio Dentistico Troiano')
   return (
     <section className="pt-header">
       <div className="wrap py-32">

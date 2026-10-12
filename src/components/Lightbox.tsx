@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import type { GalleryItem } from '../content/content'
 import { gsap, getLenis, prefersReducedMotion } from '../lib/motion'
+import { imgSrc } from './Img'
 
 /** Visualizzazione a schermo intero delle fotografie, con tastiera (frecce, Esc). */
 export function Lightbox({ items, index, onClose, onIndex }: { items: GalleryItem[]; index: number | null; onClose: () => void; onIndex: (i: number) => void }) {
@@ -49,7 +50,7 @@ export function Lightbox({ items, index, onClose, onIndex }: { items: GalleryIte
         </button>
       </div>
       <div className="relative flex min-h-0 flex-1 items-center justify-center px-4 md:px-20">
-        <img src={it.src} alt={it.alt} className="h-full w-full max-w-[1100px] object-contain" />
+        <img src={imgSrc(it.image, 1600)} alt={it.alt} className="h-full w-full max-w-[1100px] object-contain" />
         <button type="button" onClick={() => onIndex((index - 1 + items.length) % items.length)} aria-label="Fotografia precedente" className="absolute left-2 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-night/40 hover:bg-white/10 md:left-6">
           <ChevronLeft size={20} />
         </button>
@@ -57,9 +58,8 @@ export function Lightbox({ items, index, onClose, onIndex }: { items: GalleryIte
           <ChevronRight size={20} />
         </button>
       </div>
-      <div className="wrap flex flex-wrap items-baseline justify-between gap-3 py-5">
+      <div className="wrap py-5">
         <p className="text-[1rem] font-medium">{it.title}</p>
-        <p className="text-[0.8rem] text-white/55">{it.note}</p>
       </div>
     </div>
   )

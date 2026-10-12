@@ -3,7 +3,8 @@ import { useEffect, useLayoutEffect, useState } from 'react'
 export const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 export function useMediaQuery(query: string) {
-  const [match, setMatch] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
+  // Sempre false al primo render: la pagina pre-renderizzata e l'idratazione coincidono
+  const [match, setMatch] = useState(false)
   useEffect(() => {
     const mq = window.matchMedia(query)
     const on = () => setMatch(mq.matches)
@@ -16,3 +17,4 @@ export function useMediaQuery(query: string) {
 
 export const useReducedMotion = () => useMediaQuery('(prefers-reduced-motion: reduce)')
 export const useIsDesktop = () => useMediaQuery('(min-width: 1024px)')
+export const useFinePointer = () => useMediaQuery('(hover: hover) and (pointer: fine)')

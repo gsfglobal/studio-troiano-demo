@@ -1,12 +1,13 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { journey } from '../content/content'
 import { gsap, prefersReducedMotion } from '../lib/motion'
+import { useIsoLayoutEffect } from '../lib/hooks'
 import { Lines } from './Lines'
 
 /** Percorso del paziente: quattro fasi reali, con una linea che avanza durante lo scroll. */
 export function Journey() {
   const root = useRef<HTMLElement>(null)
-  useLayoutEffect(() => {
+  useIsoLayoutEffect(() => {
     const el = root.current
     if (!el || prefersReducedMotion()) return
     const ctx = gsap.context(() => {

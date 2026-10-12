@@ -15,10 +15,12 @@ type Props = {
   type?: 'button' | 'submit'
   magnetic?: boolean
   ariaLabel?: string
+  /** I link esterni si aprono in una nuova scheda (non per tel: e mailto:). */
+  external?: boolean
 }
 
 /** Pulsante con micro-interazione magnetica moderata (solo con mouse). */
-export function Button({ children, to, href, onClick, variant = 'primary', className = '', icon, type = 'button', magnetic = true, ariaLabel }: Props) {
+export function Button({ children, to, href, onClick, variant = 'primary', className = '', icon, type = 'button', magnetic = true, ariaLabel, external }: Props) {
   const ref = useRef<HTMLElement | null>(null)
   const cls = `btn btn-${variant} ${className}`
 
@@ -52,7 +54,12 @@ export function Button({ children, to, href, onClick, variant = 'primary', class
     )
   if (href)
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" ref={ref as React.Ref<HTMLAnchorElement>} {...common}>
+      <a
+        href={href}
+        {...((external ?? /^https?:/.test(href)) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        {...common}
+      >
         {inner}
       </a>
     )

@@ -1,4 +1,4 @@
-import { useId, useLayoutEffect, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
 import type { TreatmentId } from '../content/content'
 import { gsap, prefersReducedMotion } from '../lib/motion'
 
@@ -7,31 +7,40 @@ export function TreatmentVisual({ id, className = '', animate = true }: { id: Tr
   const uid = useId().replace(/:/g, '')
   const ref = useRef<SVGSVGElement>(null)
 
-  useLayoutEffect(() => {
+  // Disegno al tratto quando l'illustrazione entra nello schermo. Si usa IntersectionObserver
+  // (nessuna misura forzata durante l'avvio); se è già visibile al caricamento resta disegnata.
+  useEffect(() => {
     const svg = ref.current
-    if (!svg || !animate || prefersReducedMotion()) return
-    const ctx = gsap.context(() => {
-      const paths = svg.querySelectorAll('[data-d]')
-      gsap.fromTo(
-        paths,
-        { strokeDasharray: 1, strokeDashoffset: 1 },
-        {
-          strokeDashoffset: 0,
-          duration: 1.8,
-          ease: 'power2.inOut',
-          stagger: 0.06,
-          scrollTrigger: { trigger: svg, start: 'top 85%', once: true },
+    if (!svg || !animate || prefersReducedMotion() || typeof IntersectionObserver === 'undefined') return
+    const paths = svg.querySelectorAll('[data-d]')
+    const fills = svg.querySelectorAll('[data-f]')
+    let play: IntersectionObserver | null = null
+    let tweens: gsap.core.Tween[] = []
+    const arm = new IntersectionObserver(([e]) => {
+      arm.disconnect()
+      if (e.boundingClientRect.top < window.innerHeight) return
+      gsap.set(paths, { strokeDasharray: 1, strokeDashoffset: 1 })
+      gsap.set(fills, { autoAlpha: 0 })
+      play = new IntersectionObserver(
+        ([en]) => {
+          if (!en.isIntersecting) return
+          play?.disconnect()
+          tweens = [
+            gsap.to(paths, { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut', stagger: 0.06 }),
+            gsap.to(fills, { autoAlpha: 1, duration: 1.2, delay: 0.9, stagger: 0.04 }),
+          ]
         },
+        { rootMargin: '0px 0px -15% 0px' },
       )
-      gsap.from(svg.querySelectorAll('[data-f]'), {
-        autoAlpha: 0,
-        duration: 1.2,
-        delay: 0.9,
-        stagger: 0.04,
-        scrollTrigger: { trigger: svg, start: 'top 85%', once: true },
-      })
-    }, svg)
-    return () => ctx.revert()
+      play.observe(svg)
+    })
+    arm.observe(svg)
+    return () => {
+      arm.disconnect()
+      play?.disconnect()
+      tweens.forEach((t) => t.kill())
+      gsap.set([...paths, ...fills], { clearProps: 'all' })
+    }
   }, [animate, id])
 
   const S = `url(#g-${uid})`
@@ -71,17 +80,47 @@ export function TreatmentVisual({ id, className = '', animate = true }: { id: Tr
         </g>
       )}
       {id === 'ortodonzia' && <Arch S={S} p={p} soft={soft} />}
-      {id === 'estetica' && (
+      {id === 'pediatrica' && (
         <g>
-          <path {...p} d="M146 104H196V256Q196 282 172 284Q146 284 146 256Z" />
-          <path {...p} d="M204 104H254V256Q254 284 228 284Q204 282 204 256Z" />
-          <path {...p} d="M108 120H140V242Q140 262 124 264Q108 262 108 244Z" />
-          <path {...p} d="M260 120H292V244Q292 262 276 264Q260 262 260 242Z" />
-          <path {...p} d="M86 300Q200 352 314 300" />
-          <path {...soft} d="M108 70V330M146 70V330M200 70V330M254 70V330M292 70V330" strokeDasharray="1" />
-          <path {...p} d="M318 96L324 112L340 118L324 124L318 140L312 124L296 118L312 112Z" />
-          <circle data-f cx="170" cy="150" r="2.5" fill={S} />
-          <circle data-f cx="228" cy="150" r="2.5" fill={S} />
+          {/* dente da latte e dente permanente, con la crescita tra i due */}
+          <path {...p} d="M92 214C90 192 106 182 124 192C142 182 158 192 156 214L153 238C151 262 144 286 136 300Q130 308 126 298L124 276L120 298Q116 308 110 300C102 286 97 262 95 238Z" />
+          <path {...p} d="M218 132C214 92 246 74 278 94C310 74 342 92 338 132L334 176C330 220 318 268 304 302Q296 318 288 300L280 248L272 300Q264 318 256 302C242 268 230 220 222 176Z" />
+          <path {...p} d="M120 162C140 110 186 92 214 104" />
+          <path {...p} d="M204 94L216 104L204 116" />
+          <path {...soft} d="M70 322H350" strokeDasharray="1" />
+          {[
+            [104, 128, 4],
+            [148, 96, 2.8],
+            [176, 150, 2.2],
+          ].map(([x, y, r]) => (
+            <circle key={`${x}-${y}`} data-d pathLength={1} cx={x} cy={y} r={r} fill="none" stroke={S} strokeWidth={1.4} vectorEffect="non-scaling-stroke" />
+          ))}
+        </g>
+      )}
+      {id === 'endodonzia' && (
+        <g>
+          {/* dente con camera pulpare e canale radicolare */}
+          <path {...p} d="M146 118C142 84 172 68 200 80C228 68 258 84 254 118L250 172C248 232 230 300 212 344Q200 364 188 344C170 300 152 232 150 172Z" />
+          <path {...p} d="M184 128C182 112 218 112 216 128L212 168C210 226 205 284 200 326C195 284 190 226 188 168Z" />
+          <path {...p} d="M200 26V112" />
+          <path {...p} d="M186 26H214" />
+          <path {...p} d="M194 46L206 54M194 62L206 70M194 78L206 86" strokeWidth={1.2} />
+          <path {...soft} d="M66 190C108 182 132 196 152 196M334 190C292 182 268 196 248 196M80 236C120 230 140 244 156 246M320 236C280 230 260 244 244 246" />
+          <circle data-f cx="200" cy="140" r="3" fill={S} />
+        </g>
+      )}
+      {id === 'protesi' && (
+        <g>
+          {/* ponte di tre corone su due pilastri */}
+          <path {...p} d="M76 160C74 130 96 118 116 128C136 118 158 130 156 160L152 204Q150 214 140 214H92Q82 214 80 204Z" />
+          <path {...p} d="M160 156C158 126 180 114 200 124C220 114 242 126 240 156L236 200Q234 210 224 210H176Q166 210 164 200Z" />
+          <path {...p} d="M244 160C242 130 264 118 284 128C304 118 326 130 324 160L320 204Q318 214 308 214H260Q250 214 248 204Z" />
+          <path {...p} d="M156 182H162M238 182H246" strokeWidth={3} />
+          <path {...p} d="M96 214L104 296Q116 316 128 296L136 214" />
+          <path {...p} d="M264 214L272 296Q284 316 296 296L304 214" />
+          <path {...soft} d="M56 240C110 228 150 250 200 244C250 238 290 228 344 240" />
+          <path {...soft} d="M60 340H340" strokeDasharray="1" />
+          <path {...p} d="M326 86L331 100L345 105L331 110L326 124L321 110L307 105L321 100Z" />
         </g>
       )}
       {id === 'igiene' && (

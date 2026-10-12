@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import { MessageCircle, Phone } from 'lucide-react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { nav, studio } from '../config/site'
+import { fullAddress, nav, studio, telUrl, whatsappUrl } from '../config/site'
 import { gsap, getLenis, prefersReducedMotion } from '../lib/motion'
 import { Button } from './Button'
 import { ToothMark } from './ToothMark'
-import { Ph } from './Ph'
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -45,10 +45,10 @@ export function Header() {
         <div className="wrap flex items-center justify-between gap-6" style={{ height: 'var(--header-h)' }}>
           <Link to="/" className="group flex shrink-0 items-center" aria-label="Studio Dentistico Troiano, torna alla home">
             <img
-              src="images/logo-troiano.webp"
+              src="/images/logo-troiano-640.webp"
               alt="Studio Dentistico Troiano"
-              width={1156}
-              height={198}
+              width={640}
+              height={110}
               className="h-[30px] w-auto md:h-[36px]"
             />
           </Link>
@@ -83,11 +83,22 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <a href={telUrl} className="hidden items-center gap-2 text-[0.92rem] font-semibold tabular-nums text-ink xl:inline-flex" aria-label={`Chiama lo studio: ${studio.phone.display}`}>
+              <Phone size={15} strokeWidth={1.8} aria-hidden="true" />
+              <span className="link-underline">{studio.phone.display}</span>
+            </a>
             <div className="hidden lg:block">
-              <Button to="/contatti" variant="primary" className="!min-h-[46px] !py-1 !pl-5 !pr-1 text-[0.88rem]">
-                Prenota una visita
+              <Button href={whatsappUrl()} variant="primary" icon={<MessageCircle size={16} strokeWidth={1.8} />} className="!min-h-[46px] !py-1 !pl-5 !pr-1 text-[0.88rem]">
+                WhatsApp
               </Button>
             </div>
+            <a
+              href={telUrl}
+              className="grid h-12 w-12 place-items-center rounded-full border border-ink/15 bg-paper/70 backdrop-blur lg:hidden"
+              aria-label={`Chiama lo studio: ${studio.phone.display}`}
+            >
+              <Phone size={18} strokeWidth={1.7} aria-hidden="true" />
+            </a>
             <button
               type="button"
               className="relative grid h-12 w-12 place-items-center rounded-full border border-ink/15 bg-paper/70 backdrop-blur lg:hidden"
@@ -184,16 +195,17 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       <div className="wrap relative mt-10 grid gap-6" data-menu-item>
         <div className="grad-line w-16" />
         <div className="grid gap-2 text-[0.95rem] text-white/70">
-          <p>
-            <Ph value={studio.phone.display} label="Telefono" />
-          </p>
-          <p>
-            <Ph value={[studio.address.street, studio.address.city].filter(Boolean).join(', ')} label="Indirizzo" />
-          </p>
+          <p>Telefono {studio.phone.display}</p>
+          <p>{fullAddress}</p>
         </div>
-        <Button to="/contatti" variant="light" className="w-full justify-between">
-          Prenota una visita
-        </Button>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Button href={whatsappUrl()} variant="light" icon={<MessageCircle size={17} strokeWidth={1.8} />} className="w-full justify-between">
+            Scrivici su WhatsApp
+          </Button>
+          <Button href={telUrl} variant="outline-light" icon={<Phone size={16} strokeWidth={1.8} />} className="w-full justify-between">
+            Chiama lo studio
+          </Button>
+        </div>
       </div>
     </div>
   )

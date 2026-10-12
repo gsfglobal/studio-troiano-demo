@@ -1,8 +1,10 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gallery } from '../content/content'
 import { gsap, prefersReducedMotion } from '../lib/motion'
-import { useIsDesktop } from '../lib/hooks'
+import { useIsDesktop, useIsoLayoutEffect } from '../lib/hooks'
 import { Lines } from './Lines'
+import { Img } from './Img'
+import images from '../content/images.json'
 
 /** Galleria degli ambienti: scorrimento orizzontale bloccato su desktop, swipe su smartphone. */
 export function Gallery() {
@@ -10,7 +12,7 @@ export function Gallery() {
   const track = useRef<HTMLDivElement>(null)
   const desktop = useIsDesktop()
 
-  useLayoutEffect(() => {
+  useIsoLayoutEffect(() => {
     const el = section.current
     const tr = track.current
     if (!el || !tr || !desktop || prefersReducedMotion()) return
@@ -48,28 +50,26 @@ export function Gallery() {
             <Lines as="h2" id="gallery-title" className="t-h2 mt-5" lines={['Uno spazio luminoso,', <>pensato per <em className="accent">accogliere.</em></>]} />
           </div>
           <p className="t-body max-w-[42ch] lg:col-span-5 lg:justify-self-end" data-reveal="fade">
-            Fotografie d'archivio pubblicate dallo studio: gli ambienti e le attrezzature attuali potrebbero essere cambiati.
+            Dalla sala operativa all'area di sterilizzazione: uno sguardo agli spazi in cui ti accogliamo.
           </p>
         </div>
         <div
           ref={track}
           className={`mt-10 flex gap-5 md:mt-14 md:gap-8 ${
-            desktop ? 'w-max pl-[var(--gutter)] pr-[12vw]' : 'no-scrollbar snap-x snap-mandatory overflow-x-auto px-[var(--gutter)] pb-2'
+            desktop ? 'w-max pl-[var(--gutter)] pr-[12vw]' : 'no-scrollbar snap-x snap-mandatory scroll-px-[var(--gutter)] overflow-x-auto px-[var(--gutter)] pb-2'
           }`}
           tabIndex={desktop ? undefined : 0}
           aria-label="Galleria fotografica, scorri in orizzontale"
         >
           {gallery.map((g, i) => {
-            const portrait = g.h > g.w
+            const m = images[g.image]
+            const portrait = m.h > m.w
             return (
-              <figure key={g.src} className={`shrink-0 snap-start ${portrait ? 'w-[64vw] sm:w-[40vw] lg:w-[24vw]' : 'w-[82vw] sm:w-[60vw] lg:w-[42vw]'} ${i % 2 ? 'lg:mt-16' : ''}`}>
+              <figure key={g.image} className={`shrink-0 snap-start ${portrait ? 'w-[64vw] sm:w-[40vw] lg:w-[24vw]' : 'w-[82vw] sm:w-[60vw] lg:w-[42vw]'} ${i % 2 ? 'lg:mt-16' : ''}`}>
                 <div className={`img-frame rounded-[22px] ${portrait ? 'aspect-[3/4]' : 'aspect-[16/10]'}`}>
-                  <img data-gimg src={g.src} alt={g.alt} width={g.w} height={g.h} loading="lazy" decoding="async" className="will-change-transform" />
+                  <Img data-gimg name={g.image} alt={g.alt} position={g.position} sizes={portrait ? '(min-width: 1024px) 24vw, 64vw' : '(min-width: 1024px) 42vw, 82vw'} className="will-change-transform" />
                 </div>
-                <figcaption className="mt-4 flex items-baseline justify-between gap-4 text-[0.9rem]">
-                  <span className="font-medium text-ink">{g.title}</span>
-                  <span className="text-[0.78rem] text-ink-soft">{g.note}</span>
-                </figcaption>
+                <figcaption className="mt-4 text-[0.9rem] font-medium text-ink">{g.title}</figcaption>
               </figure>
             )
           })}

@@ -1,16 +1,22 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Route, Routes, useLocation, type Location } from 'react-router-dom'
 import Lenis from 'lenis'
 import { Header } from './Header'
 import { Footer } from './Footer'
-import { DemoBadge } from './DemoBadge'
 import { ToothMark } from './ToothMark'
 import { gsap, ScrollTrigger, isFinePointer, prefersReducedMotion, scrollToTop, setLenis } from '../lib/motion'
+import { useIsoLayoutEffect } from '../lib/hooks'
+import { markHydrated } from '../lib/reveal'
+import { metaFor } from '../config/pages'
+import { SITE_URL } from '../config/site'
 import Home from '../pages/Home'
 import Studio from '../pages/Studio'
 import Trattamenti from '../pages/Trattamenti'
-import Professionista from '../pages/Professionista'
+import Tecnologie from '../pages/Tecnologie'
+import Team from '../pages/Team'
 import Contatti from '../pages/Contatti'
+import Privacy from '../pages/Privacy'
+import Cookie from '../pages/Cookie'
 import NotFound from '../pages/NotFound'
 
 export function Layout() {
@@ -18,6 +24,9 @@ export function Layout() {
   const [shown, setShown] = useState<Location>(location)
   const curtain = useRef<HTMLDivElement>(null)
   const busy = useRef(false)
+
+  // Dopo il primo montaggio le pagine successive si animano per intero
+  useEffect(() => markHydrated(), [])
 
   // Scorrimento morbido solo con mouse/trackpad e senza preferenza di movimento ridotto
   useEffect(() => {
@@ -43,10 +52,18 @@ export function Layout() {
     return () => window.removeEventListener('load', refresh)
   }, [])
 
+  // Title, description e canonical durante la navigazione (al primo caricamento li scrive il pre-rendering)
+  useEffect(() => {
+    const m = metaFor(shown.pathname)
+    document.title = m.title
+    document.querySelector('meta[name="description"]')?.setAttribute('content', m.description)
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', SITE_URL + (m.path === '/' ? '/' : m.path))
+  }, [shown.pathname])
+
   // Transizione tra le pagine: una tenda bianca con il tratto del dente
   useEffect(() => {
     if (location.pathname === shown.pathname) {
-      if (location.search !== shown.search) setShown(location)
+      if (location.search !== shown.search || location.hash !== shown.hash) setShown(location)
       return
     }
     const c = curtain.current
@@ -72,7 +89,7 @@ export function Layout() {
       .set(c, { display: 'none' })
   }, [location]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  useLayoutEffect(() => {
+  useIsoLayoutEffect(() => {
     const id = window.setTimeout(() => ScrollTrigger.refresh(), 120)
     return () => window.clearTimeout(id)
   }, [shown.pathname])
@@ -88,13 +105,15 @@ export function Layout() {
           <Route path="/" element={<Home />} />
           <Route path="/studio" element={<Studio />} />
           <Route path="/trattamenti" element={<Trattamenti />} />
-          <Route path="/professionista" element={<Professionista />} />
+          <Route path="/tecnologie" element={<Tecnologie />} />
+          <Route path="/team" element={<Team />} />
           <Route path="/contatti" element={<Contatti />} />
+          <Route path="/privacy-policy" element={<Privacy />} />
+          <Route path="/cookie-policy" element={<Cookie />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
-      <DemoBadge />
       <div ref={curtain} aria-hidden="true" className="fixed inset-0 z-[80] hidden items-center justify-center bg-paper">
         <ToothMark className="h-[22vh] w-auto" strokeWidth={2.4} />
       </div>
