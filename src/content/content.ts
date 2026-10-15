@@ -237,8 +237,8 @@ const allTeam: TeamMember[] = [
     role: 'Igienista dentale',
     text: 'Esegue le sedute di igiene professionale con la tecnica GBT e segue i pazienti nei richiami periodici di prevenzione.',
     photo: 'team-maria-scarfato',
-    alt: 'La Dott.ssa Maria Scarfato, igienista dentale, con la maglia nera dello Studio Dentistico Troiano',
-    objectPosition: 'center 22%',
+    alt: 'La Dott.ssa Maria Scarfato, igienista dentale, sorridente, con la maglia nera dello Studio Dentistico Troiano, nella sala operativa',
+    objectPosition: 'center 30%',
   },
   {
     id: 'nunzia-santarpia',
@@ -267,8 +267,8 @@ const allTeam: TeamMember[] = [
     role: 'Assistente',
     text: '',
     photo: 'team-antonella-ammendola',
-    alt: 'Antonella Ammendola, assistente dello studio, sorridente, con la maglia nera dello Studio Dentistico Troiano, nella sala operativa',
-    objectPosition: 'center 30%',
+    alt: 'Antonella Ammendola, assistente dello studio, con la maglia nera dello Studio Dentistico Troiano',
+    objectPosition: 'center 22%',
   },
 ]
 
