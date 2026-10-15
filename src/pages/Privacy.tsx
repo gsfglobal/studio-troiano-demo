@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { LegalPage, type LegalSection } from '../components/LegalPage'
 import { fullAddress, studio } from '../config/site'
+import { analyticsConfigured } from '../lib/analytics'
+import { CookiePreferencesLink } from '../components/CookieBanner'
 
 export default function Privacy() {
   const sections: LegalSection[] = [
@@ -36,6 +38,17 @@ export default function Privacy() {
             <strong>Statistiche.</strong> Il sito utilizza Cloudflare Web Analytics, un servizio di statistiche che non usa cookie, non crea
             profili e fornisce solo dati aggregati e anonimi (ad esempio il numero di visite e le pagine più consultate).
           </p>
+          {analyticsConfigured && (
+            <p>
+              <strong>Google Analytics (solo con il tuo consenso).</strong> Se accetti i cookie statistici nel banner, il sito usa Google
+              Analytics 4 di Google Ireland Limited per misurare le visite e i clic sui pulsanti di contatto (telefono, WhatsApp, email,
+              mappa). Google riceve dati tecnici sulla navigazione (pagine viste, tipo di dispositivo, città approssimativa, identificativo
+              casuale del cookie) ma non il tuo nome, il tuo numero o il testo dei messaggi; nell'Unione europea l'indirizzo IP non viene
+              memorizzato. Segnali Google e funzioni pubblicitarie sono disattivati. Le statistiche sono gestite per conto dello studio da{' '}
+              {studio.agency.name}, che opera come responsabile del trattamento. Puoi ritirare il consenso in qualsiasi momento da{' '}
+              <CookiePreferencesLink className="link-underline font-semibold text-ink" />.
+            </p>
+          )}
         </>
       ),
     },
@@ -98,6 +111,9 @@ export default function Privacy() {
             Dati di navigazione e statistiche aggregate: legittimo interesse dello studio al funzionamento sicuro del sito e alla misura
             anonima delle visite (art. 6, par. 1, lett. f del Regolamento UE 2016/679).
           </li>
+          {analyticsConfigured && (
+            <li>Statistiche con Google Analytics: il tuo consenso, che puoi ritirare in qualsiasi momento (art. 6, par. 1, lett. a).</li>
+          )}
           <li>Richieste di contatto: rispondere a una tua richiesta prima di un eventuale appuntamento (art. 6, par. 1, lett. b).</li>
         </ul>
       ),
@@ -106,7 +122,7 @@ export default function Privacy() {
       title: "Trasferimento dei dati fuori dall'Unione europea",
       body: (
         <p>
-          Cloudflare, Inc. ha sede negli Stati Uniti. L'eventuale trasferimento dei dati di navigazione avviene con le garanzie previste dal
+          Cloudflare, Inc.{analyticsConfigured ? ' e Google LLC (capogruppo di Google Ireland Limited) hanno' : ' ha'} sede negli Stati Uniti. L'eventuale trasferimento dei dati di navigazione avviene con le garanzie previste dal
           Regolamento UE 2016/679, come il Data Privacy Framework UE-USA e le clausole contrattuali standard approvate dalla Commissione
           europea.
         </p>
@@ -116,8 +132,10 @@ export default function Privacy() {
       title: 'Per quanto tempo',
       body: (
         <p>
-          I dati di navigazione sono conservati dal fornitore di hosting per il tempo strettamente necessario alla sicurezza del servizio. I dati
-          delle richieste di contatto sono conservati per il tempo necessario a gestirle.
+          I dati di navigazione sono conservati dal fornitore di hosting per il tempo strettamente necessario alla sicurezza del servizio.
+          {analyticsConfigured &&
+            ' I dati di Google Analytics a livello di singolo visitatore sono conservati per 2 mesi e i cookie statistici durano al massimo 13 mesi; restano solo i totali aggregati, che non identificano nessuno.'}{' '}
+          I dati delle richieste di contatto sono conservati per il tempo necessario a gestirle.
         </p>
       ),
     },

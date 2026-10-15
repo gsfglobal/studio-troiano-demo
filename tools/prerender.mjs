@@ -114,14 +114,19 @@ await writeFile(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitem
 
 // _headers: sicurezza, cache e noindex sull'anteprima *.pages.dev
 const inline = [...template.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => `'sha256-${createHash('sha256').update(m[1]).digest('base64')}'`)
+// Google Analytics 4: domini aggiunti solo se l'ID è inserito in site.ts (analytics.ga4Id)
+const ga = /^G-[A-Z0-9]+$/.test((studio.analytics?.ga4Id ?? '').trim())
+const gaScript = ga ? ' https://www.googletagmanager.com' : ''
+const gaImg = ga ? ' https://*.google-analytics.com https://*.googletagmanager.com' : ''
+const gaConnect = ga ? ' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com' : ''
 const csp = [
   "default-src 'self'",
-  `script-src 'self' ${inline.join(' ')} https://static.cloudflareinsights.com`,
+  `script-src 'self' ${inline.join(' ')} https://static.cloudflareinsights.com${gaScript}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
+  `img-src 'self' data:${gaImg}`,
   "font-src 'self'",
   // Giulia (spenta al lancio): quando si attiva, aggiungere qui wss://api.elevenlabs.io https://api.elevenlabs.io
-  "connect-src 'self' https://cloudflareinsights.com",
+  `connect-src 'self' https://cloudflareinsights.com${gaConnect}`,
   "media-src 'self' blob:",
   "worker-src 'self' blob:",
   "frame-ancestors 'none'",

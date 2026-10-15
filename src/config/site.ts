@@ -59,6 +59,16 @@ export const studio = {
     voiceAgentId: '',
   },
 
+  /**
+   * Google Analytics 4 (servizio «Monitoraggio Contatti»).
+   * ID vuoto = nulla si carica e il banner dei cookie non compare.
+   * Con l'ID ('G-…'): GA si attiva solo sul dominio definitivo (SITE_URL) e solo dopo il consenso
+   * del visitatore; mai sull'anteprima. La cookie policy e la privacy policy si aggiornano da sole.
+   */
+  analytics: {
+    ga4Id: '',
+  },
+
   /** Profili social dello studio (vuoto = icona visibile ma non cliccabile). */
   social: {
     facebook: 'https://www.facebook.com/StudioDentisticoTroiano/',

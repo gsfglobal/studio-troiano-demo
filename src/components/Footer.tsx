@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { legalLine, nav, studio, telUrl, whatsappUrl } from '../config/site'
 import { LogoTooth } from './LogoTooth'
 import { SocialLinks } from './SocialLinks'
+import { CookiePreferencesLink } from './CookieBanner'
 import { asset } from '../lib/base'
 
 export function Footer() {
@@ -96,6 +97,7 @@ export function Footer() {
               <Link to="/privacy-policy" className="link-underline hover:text-white">Privacy policy</Link>
               {' · '}
               <Link to="/cookie-policy" className="link-underline hover:text-white">Cookie policy</Link>
+              <CookiePreferencesLink prefix=" · " className="link-underline hover:text-white" />
             </p>
             <p>
               Sito realizzato da{' '}

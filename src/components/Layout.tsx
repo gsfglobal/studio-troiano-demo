@@ -4,9 +4,11 @@ import Lenis from 'lenis'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { LogoTooth } from './LogoTooth'
+import { CookieBanner } from './CookieBanner'
 import { gsap, ScrollTrigger, isFinePointer, prefersReducedMotion, scrollToTop, setLenis } from '../lib/motion'
 import { useIsoLayoutEffect } from '../lib/hooks'
 import { markHydrated } from '../lib/reveal'
+import { trackPageView } from '../lib/analytics'
 import { metaFor } from '../config/pages'
 import { SITE_URL } from '../config/site'
 import Home from '../pages/Home'
@@ -58,6 +60,8 @@ export function Layout() {
     document.title = m.title
     document.querySelector('meta[name="description"]')?.setAttribute('content', m.description)
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', SITE_URL + (m.path === '/' ? '/' : m.path))
+    // Google Analytics (solo con consenso): la pagina si registra quando il titolo è già quello giusto
+    trackPageView()
   }, [shown.pathname])
 
   // Transizione tra le pagine: una tenda bianca con il tratto del dente
@@ -114,6 +118,7 @@ export function Layout() {
         </Routes>
       </main>
       <Footer />
+      <CookieBanner />
       <div ref={curtain} aria-hidden="true" className="fixed inset-0 z-[80] hidden items-center justify-center bg-paper">
         <LogoTooth className="h-[22vh] w-auto" />
       </div>

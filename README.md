@@ -8,7 +8,8 @@ statico**: ogni pagina è un file HTML completo (Google legge i contenuti senza 
 
 - URL puliti: `/studio`, `/trattamenti`, `/tecnologie`, `/team`, `/contatti`, `/privacy-policy`, `/cookie-policy`
 - Nessun cookie, nessun modulo, nessun servizio esterno caricato all'apertura (font dal sito stesso,
-  niente mappa incorporata): **non serve il banner dei cookie**.
+  niente mappa incorporata). Il banner dei cookie compare solo quando si attiva Google Analytics
+  (vedi sotto), che parte solo dopo il consenso.
 - Contatti solo con pulsanti: WhatsApp (solo messaggi) e telefono fisso.
 - Testi informativi conformi alla comunicazione sanitaria (L. 145/2018, c. 525, come modificato
   dalla L. 103/2023): nessuna promessa, sconto, superlativo o marchio di dispositivi.
@@ -71,6 +72,33 @@ serve la liberatoria firmata della persona.
 Le immagini in `tech-*.webp` sono illustrative (immagini di catalogo senza marchi; sullo schermo
 del laser le scritte sono sfocate). Quando il dottore manda le foto reali delle apparecchiature,
 sostituirle in `assets/foto/` con lo stesso nome e lanciare `npm run images`.
+
+## Google Analytics 4 — «Monitoraggio Contatti»
+
+In `src/config/site.ts`: `analytics: { ga4Id: '' }`. Con l'ID vuoto non si carica nulla e il banner
+dei cookie non compare. Inserendo l'ID (`G-…`) e pubblicando:
+
+- compare il **banner dei cookie** (Accetta / Rifiuta con lo stesso peso, la X = rifiuta); la scelta
+  si richiede dopo 6 mesi. Nel footer compare «Preferenze cookie» per cambiare idea;
+- Google Analytics si carica **solo dopo «Accetta»** e **solo sul dominio definitivo** (`SITE_URL`),
+  mai sull'anteprima. Segnali Google e funzioni pubblicitarie spenti, cookie `_ga` di 13 mesi;
+- eventi inviati: `page_view` (con il titolo giusto anche nella navigazione interna) e i clic di
+  contatto `click_telefono`, `click_whatsapp`, `click_email`, `click_maps`, `click_social`, con il
+  parametro `posizione` (`menu`, `pagina`, `footer`). Nessun dato personale;
+- cookie policy, privacy policy e CSP in `_headers` si aggiornano da sole.
+
+**Impostazioni da fare una volta nella proprietà GA4** (Amministrazione):
+1. Stream di dati › Misurazione avanzata › Visualizzazioni di pagina › Mostra impostazioni avanzate:
+   **disattivare** «Modifiche della pagina in base agli eventi della cronologia del browser»
+   (le pagine le invia già il sito: altrimenti verrebbero contate due volte).
+2. Conservazione dei dati › Dati a livello di evento e utente: **2 mesi** (è quanto scritto nelle policy).
+3. Raccolta dei dati: lasciare **spenti** i Segnali Google.
+4. Eventi chiave: segnare come chiave `click_telefono`, `click_whatsapp` ed eventualmente `click_email`
+   (compaiono nell'elenco dopo il primo clic).
+5. Gestione accessi alla proprietà: lo studio in sola lettura («Visualizzatore») con la sua Gmail.
+
+Prima di attivarlo serve la nomina di Dental Go a responsabile del trattamento (art. 28 GDPR),
+firmata dallo studio. Per provare il banner fuori dal dominio: build con `VITE_ANALYTICS_TEST=1`.
 
 ## Giulia (assistente AI) — spenta al lancio
 
