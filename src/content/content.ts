@@ -66,10 +66,7 @@ export const treatments: Treatment[] = [
     title: 'Ortodonzia',
     short: 'Allineare i denti',
     description:
-      "L'ortodonzia corregge la posizione dei denti e il modo in cui le arcate combaciano, per ragazzi e adulti. Lo studio si dedica in particolare all'ortodonzia linguale: l'apparecchio viene applicato sul lato interno dei denti e non si vede dall'esterno.",
-    details: [
-      ['In alcuni casi si utilizzano retainer attivi, senza attacchi applicati sui denti. Le terapie ortodontiche sono seguite dalla Dott.ssa Carla Romanucci.'],
-    ],
+      "L'ortodonzia corregge la posizione dei denti e il modo in cui le arcate combaciano, per ragazzi e adulti. Lo studio si dedica in particolare all'ortodonzia linguale: l'apparecchio viene applicato sul lato interno dei denti e non si vede dall'esterno. Le terapie ortodontiche sono effettuate dalla Dott.ssa Carla Romanucci.",
     expect: ['Studio del caso con foto e scansione digitale', 'Apparecchio sul lato interno dei denti', 'Controlli regolari durante la terapia'],
     steps: [
       { title: 'Studio del caso', text: 'Visita, fotografie, scansione digitale e radiografie necessarie.' },
@@ -240,7 +237,8 @@ const allTeam: TeamMember[] = [
     role: 'Igienista dentale',
     text: 'Esegue le sedute di igiene professionale con la tecnica GBT e segue i pazienti nei richiami periodici di prevenzione.',
     photo: 'team-maria-scarfato',
-    alt: 'Ritratto della Dott.ssa Maria Scarfato, igienista dentale',
+    alt: 'La Dott.ssa Maria Scarfato, igienista dentale, con la maglia nera dello Studio Dentistico Troiano',
+    objectPosition: 'center 22%',
   },
   {
     id: 'nunzia-santarpia',
@@ -262,8 +260,16 @@ const allTeam: TeamMember[] = [
     alt: 'Stefania Marasco, assistente dello studio, sorridente, con la maglia nera dello Studio Dentistico Troiano',
     objectPosition: 'center 25%',
   },
-  // Seconda assistente: compilare nome e foto quando arrivano (assets/foto/team-nome-cognome.webp)
-  { id: 'assistente-2', group: 'assistenza', name: '', role: 'Assistente', text: '', photo: 'team-assistente-2', alt: '' },
+  {
+    id: 'antonella-ammendola',
+    group: 'assistenza',
+    name: 'Antonella Ammendola',
+    role: 'Assistente',
+    text: '',
+    photo: 'team-antonella-ammendola',
+    alt: 'Antonella Ammendola, assistente dello studio, sorridente, con la maglia nera dello Studio Dentistico Troiano, nella sala operativa',
+    objectPosition: 'center 30%',
+  },
 ]
 
 const isReady = (m: TeamMember) => Boolean(m.name) && m.photo in images

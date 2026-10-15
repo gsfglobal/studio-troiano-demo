@@ -53,6 +53,15 @@
       1600
     ]
   },
+  "team-antonella-ammendola": {
+    "w": 1200,
+    "h": 1600,
+    "widths": [
+      480,
+      800,
+      1200
+    ]
+  },
   "team-carla-romanucci": {
     "w": 1254,
     "h": 1254,
@@ -60,6 +69,15 @@
       480,
       800,
       1254
+    ]
+  },
+  "team-maria-scarfato": {
+    "w": 1060,
+    "h": 1599,
+    "widths": [
+      480,
+      800,
+      1060
     ]
   },
   "team-nunzia-santarpia": {
