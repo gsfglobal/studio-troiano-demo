@@ -66,7 +66,7 @@ export const studio = {
    * del visitatore; mai sull'anteprima. La cookie policy e la privacy policy si aggiornano da sole.
    */
   analytics: {
-    ga4Id: '',
+    ga4Id: 'G-KES6PHY6ES',
   },
 
   /** Profili social dello studio (vuoto = icona visibile ma non cliccabile). */
