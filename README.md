@@ -41,10 +41,10 @@ Progetto Pages collegato a questo repository (account Dental Go):
 Ogni push su `main` pubblica il sito. L'anteprima `*.pages.dev` ha `X-Robots-Tag: noindex`
 (vedi `dist/_headers`), così Google indicizza solo il dominio definitivo.
 
-**Dominio** `studiodentisticotroiano.it` (OVH, intestato ad Amedeo Troiano):
+**Dominio** `studiodentisticotroiano.com` (OVH, intestato ad Amedeo Troiano; il .it è di un altro studio):
 1. Cloudflare › Aggiungi sito › piano Free; su OVH sostituire i nameserver con quelli indicati da Cloudflare.
-2. Pages › progetto › Domini personalizzati: aggiungere `studiodentisticotroiano.it` e `www.studiodentisticotroiano.it`.
-3. Regola di reindirizzamento (Rules › Redirect Rules): `www.studiodentisticotroiano.it/*` → `https://studiodentisticotroiano.it/${1}` (301).
+2. Pages › progetto › Domini personalizzati: aggiungere `studiodentisticotroiano.com` e `www.studiodentisticotroiano.com`.
+3. Regola di reindirizzamento (Rules › Redirect Rules): `www.studiodentisticotroiano.com/*` → `https://studiodentisticotroiano.com/${1}` (301).
 4. HTTPS è automatico. Facoltativo: Email Routing `info@` → `studiodentisticoatroiano@gmail.com`
    (poi aggiornare `email` in `src/config/site.ts`).
 5. Statistiche: Pages › progetto › Metriche › Web Analytics (senza cookie). Il CSP permette già

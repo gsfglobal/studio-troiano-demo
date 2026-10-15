@@ -4,7 +4,7 @@
  */
 export type Hours = { days: string; time: string; schema?: { days: string[]; opens: string; closes: string }[] }
 
-export const SITE_URL = 'https://studiodentisticotroiano.it'
+export const SITE_URL = 'https://studiodentisticotroiano.com'
 
 export const studio = {
   name: 'Studio Dentistico Troiano',
@@ -16,7 +16,7 @@ export const studio = {
   whatsapp: { display: '339 235 1808', number: '393392351808' },
   /**
    * Email pubblica. Quando l'inoltro Cloudflare Email Routing è attivo,
-   * sostituire con 'info@studiodentisticotroiano.it'.
+   * sostituire con 'info@studiodentisticotroiano.com'.
    */
   email: 'studiodentisticoatroiano@gmail.com',
 
