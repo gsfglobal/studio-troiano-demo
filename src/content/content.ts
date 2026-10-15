@@ -66,7 +66,7 @@ export const treatments: Treatment[] = [
     title: 'Ortodonzia',
     short: 'Allineare i denti',
     description:
-      "L'ortodonzia corregge la posizione dei denti e il modo in cui le arcate combaciano, per ragazzi e adulti. Lo studio si dedica in particolare all'ortodonzia linguale: l'apparecchio viene applicato sul lato interno dei denti e non si vede dall'esterno. Le terapie ortodontiche sono effettuate dalla Dott.ssa Carla Romanucci.",
+      "L'ortodonzia corregge la posizione dei denti e il modo in cui le arcate combaciano, per ragazzi e adulti. Lo studio si dedica in particolare all'ortodonzia linguale: l'apparecchio viene applicato sul lato interno dei denti e non si vede dall'esterno. Le terapie ortodontiche sono effettuate dalla Dott.ssa Carla Romanucci, che si occupa anche della diagnosi e della cura dei disturbi dell'ATM (articolazione temporomandibolare).",
     expect: ['Studio del caso con foto e scansione digitale', 'Apparecchio sul lato interno dei denti', 'Controlli regolari durante la terapia'],
     steps: [
       { title: 'Studio del caso', text: 'Visita, fotografie, scansione digitale e radiografie necessarie.' },
@@ -225,7 +225,7 @@ const allTeam: TeamMember[] = [
     group: 'clinici',
     name: 'Dott.ssa Carla Romanucci',
     role: 'Ortodonzia',
-    text: "Si occupa delle terapie ortodontiche dello studio, con particolare attenzione all'ortodonzia linguale.",
+    text: "Si occupa delle terapie ortodontiche dello studio, con particolare attenzione all'ortodonzia linguale, e della diagnosi e cura dei disturbi dell'ATM (articolazione temporomandibolare).",
     photo: 'team-carla-romanucci',
     alt: 'Ritratto della Dott.ssa Carla Romanucci, sorridente, seduta nel suo studio',
     objectPosition: 'center 30%',
