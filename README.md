@@ -100,6 +100,29 @@ dei cookie non compare. Inserendo l'ID (`G-…`) e pubblicando:
 Prima di attivarlo serve la nomina di Dental Go a responsabile del trattamento (art. 28 GDPR),
 firmata dallo studio. Per provare il banner fuori dal dominio: build con `VITE_ANALYTICS_TEST=1`.
 
+## Recensioni Google in home page
+
+In `src/config/site.ts`: `reviews: { enabled: true, placeId: '…' }` (place ID della scheda Google dello studio).
+La sezione «Le recensioni su Google» legge valutazione e recensioni in tempo reale dalla Pages Function
+`functions/api/recensioni.ts` (Places API New). Senza chiave, o con la quota finita, restano solo i pulsanti
+«Lascia una recensione» e «Tutte le recensioni». In Contatti c'è sempre «Lascia una recensione».
+
+**Configurazione una tantum (Google Cloud, account Dental Go):**
+1. Progetto «Sito Studio Troiano» › API e servizi › abilitare **Places API (New)** (serve un account di fatturazione).
+2. Credenziali › Crea chiave API › Limita chiave: solo **Places API (New)**.
+3. Quote › Places API (New) › «Place Details … per day»: impostare **30** al giorno. Ogni visualizzazione
+   della sezione è una richiesta «Place Details Enterprise + Atmosphere»; Google ne regala 1.000 al mese,
+   quindi con 30 al giorno il costo resta 0 €. Se la quota finisce, la sezione mostra solo i pulsanti.
+4. Cloudflare › Pages › studio-troiano › Impostazioni › Variabili e segreti › Aggiungi **segreto**
+   `GOOGLE_PLACES_KEY` (Produzione) con la chiave, poi ripubblicare l'ultimo deploy.
+
+Regole di Google rispettate: nessuna cache dei contenuti, recensioni nell'ordine di Google con nota esplicativa,
+autore con foto, nome e link, link a ogni recensione su Google Maps, logo Google, «Tradotta da Google» se serve.
+
+**Pubblicità sanitaria:** le recensioni restano quelle scelte da Google (nessuna selezione), con la nota che le
+opinioni non sostituiscono la valutazione clinica. Non chiedere recensioni in cambio di sconti o regali e
+chiederle a tutti i pazienti. La pubblicazione è una scelta del direttore sanitario.
+
 ## Giulia (assistente AI) — spenta al lancio
 
 In `src/config/site.ts`: `giulia: { enabled: false, whatsapp: '', voiceAgentId: '' }`.

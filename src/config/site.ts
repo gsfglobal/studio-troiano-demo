@@ -69,6 +69,18 @@ export const studio = {
     ga4Id: 'G-KES6PHY6ES',
   },
 
+  /**
+   * Recensioni Google (scheda Google dello studio).
+   * enabled: true = in home compare la sezione «Le recensioni su Google» con valutazione e recensioni
+   * lette in tempo reale da /api/recensioni (serve il segreto GOOGLE_PLACES_KEY su Cloudflare, vedi README).
+   * Senza chiave, o se la quota giornaliera è finita, compaiono solo i pulsanti verso Google.
+   * In Contatti c'è sempre il pulsante «Lascia una recensione su Google».
+   */
+  reviews: {
+    enabled: true,
+    placeId: 'ChIJYShCM9ilOxMROKJk1hZhWhM',
+  },
+
   /** Profili social dello studio (vuoto = icona visibile ma non cliccabile). */
   social: {
     facebook: 'https://www.facebook.com/StudioDentisticoTroiano/',
@@ -89,7 +101,13 @@ const waNumber = () => (studio.giulia.enabled && studio.giulia.whatsapp ? studio
 export const whatsappUrl = (text = 'Buongiorno, vorrei informazioni per una visita.') =>
   `https://wa.me/${waNumber()}?text=${encodeURIComponent(text)}`
 
-export const legalLine = `${studio.name} – ${fullAddress} – P.IVA ${studio.legal.vat} – Direttore sanitario: ${studio.legal.healthDirector}, ${studio.legal.albo}`
+/** Modulo di Google per lasciare una recensione sulla scheda dello studio. */
+export const writeReviewUrl = `https://search.google.com/local/writereview?placeid=${studio.reviews.placeId}`
+
+/** Scheda Google dello studio (tutte le recensioni). */
+export const googleReviewsUrl = `https://www.google.com/maps/place/?q=place_id:${studio.reviews.placeId}`
+
+export const legalLine =`${studio.name} – ${fullAddress} – P.IVA ${studio.legal.vat} – Direttore sanitario: ${studio.legal.healthDirector}, ${studio.legal.albo}`
 
 export const nav = [
   { to: '/', label: 'Home' },

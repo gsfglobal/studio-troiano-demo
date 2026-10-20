@@ -38,6 +38,18 @@ export default function Privacy() {
             <strong>Statistiche.</strong> Il sito utilizza Cloudflare Web Analytics, un servizio di statistiche che non usa cookie, non crea
             profili e fornisce solo dati aggregati e anonimi (ad esempio il numero di visite e le pagine più consultate).
           </p>
+          {studio.reviews.enabled && (
+            <p>
+              <strong>Recensioni Google.</strong> In home page il sito mostra la valutazione e alcune recensioni pubblicate dagli utenti sulla
+              scheda Google dello studio, lette in tempo reale da Google senza essere conservate dal sito. Le foto profilo degli autori vengono
+              caricate dai server di Google (googleusercontent.com), che ricevono il tuo indirizzo IP come per qualsiasi immagine; non vengono
+              installati cookie. I pulsanti «Lascia una recensione» e «Tutte le recensioni» aprono Google, con la sua{' '}
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+                informativa privacy
+              </a>
+              .
+            </p>
+          )}
           {analyticsConfigured && (
             <p>
               <strong>Google Analytics (solo con il tuo consenso).</strong> Se accetti i cookie statistici nel banner, il sito usa Google

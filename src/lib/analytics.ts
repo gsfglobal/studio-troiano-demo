@@ -112,6 +112,7 @@ function classify(href: string): ContactEvent | null {
   if (href.startsWith('tel:')) return { name: 'click_telefono' }
   if (/^https:\/\/(wa\.me|api\.whatsapp\.com)\//.test(href)) return { name: 'click_whatsapp' }
   if (href.startsWith('mailto:')) return { name: 'click_email' }
+  if (href.startsWith('https://search.google.com/local/writereview')) return { name: 'click_lascia_recensione' }
   if (/^https:\/\/(www\.)?google\.[a-z.]+\/maps|^https:\/\/maps\.(app\.goo\.gl|google\.)/.test(href)) return { name: 'click_maps' }
   const social = href.match(/^https:\/\/(?:www\.)?(facebook|instagram|tiktok)\.com\//)
   if (social) return { name: 'click_social', params: { social: social[1] } }

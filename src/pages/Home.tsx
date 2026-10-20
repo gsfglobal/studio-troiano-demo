@@ -9,6 +9,7 @@ import { HeroTooth } from '../components/HeroTooth'
 import { Gallery } from '../components/Gallery'
 import { Journey } from '../components/Journey'
 import { CtaBand } from '../components/CtaBand'
+import { GoogleReviews } from '../components/GoogleReviews'
 import { TreatmentVisual } from '../components/TreatmentVisual'
 import { director, findGallery, team, technologies, treatments, type TreatmentId } from '../content/content'
 import { studio } from '../config/site'
@@ -247,6 +248,9 @@ export default function Home() {
 
       {/* 8 — Percorso del paziente */}
       <Journey />
+
+      {/* 8b — Recensioni su Google (dati letti in tempo reale dalla scheda Google) */}
+      <GoogleReviews />
 
       {/* 9 — Contatti */}
       <CtaBand />

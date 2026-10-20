@@ -118,12 +118,14 @@ const inline = [...template.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) =
 const ga = /^G-[A-Z0-9]+$/.test((studio.analytics?.ga4Id ?? '').trim())
 const gaScript = ga ? ' https://www.googletagmanager.com' : ''
 const gaImg = ga ? ' https://*.google-analytics.com https://*.googletagmanager.com' : ''
+// Recensioni Google: le foto profilo degli autori arrivano da googleusercontent.com
+const reviewsImg = studio.reviews?.enabled ? ' https://*.googleusercontent.com' : ''
 const gaConnect = ga ? ' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com' : ''
 const csp = [
   "default-src 'self'",
   `script-src 'self' ${inline.join(' ')} https://static.cloudflareinsights.com${gaScript}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data:${gaImg}`,
+  `img-src 'self' data:${gaImg}${reviewsImg}`,
   "font-src 'self'",
   // Giulia (spenta al lancio): quando si attiva, aggiungere qui wss://api.elevenlabs.io https://api.elevenlabs.io
   `connect-src 'self' https://cloudflareinsights.com${gaConnect}`,

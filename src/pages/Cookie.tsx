@@ -113,6 +113,8 @@ export default function Cookie() {
         <p>
           I pulsanti e i collegamenti verso WhatsApp, Facebook, Instagram, TikTok, Google Maps o altri siti aprono servizi esterni, che applicano
           le proprie regole sui cookie: ti invitiamo a consultare le rispettive informative.
+          {studio.reviews.enabled &&
+            ' Nella sezione delle recensioni Google le foto profilo degli autori sono caricate dai server di Google come semplici immagini, senza cookie.'}
         </p>
       ),
     },

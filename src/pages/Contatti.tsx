@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react'
-import { Check, Clock, Copy, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { Check, Clock, Copy, Mail, MapPin, MessageCircle, PenLine, Phone } from 'lucide-react'
 import { PageHero } from '../components/PageHero'
 import { ContactButtons } from '../components/ContactButtons'
 import { Button } from '../components/Button'
-import { fullAddress, studio, telUrl, whatsappUrl } from '../config/site'
+import { fullAddress, studio, telUrl, whatsappUrl, writeReviewUrl } from '../config/site'
 import { gsap } from '../lib/motion'
 import { useIsoLayoutEffect } from '../lib/hooks'
 import { setupReveals } from '../lib/reveal'
@@ -84,8 +84,13 @@ export default function Contatti() {
                     <address className="mt-1 not-italic text-ink-soft">{fullAddress}</address>
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-wrap gap-3">
                   <Button href={studio.address.mapsUrl} variant="primary">Apri in Google Maps</Button>
+                  {studio.reviews.enabled && (
+                    <Button href={writeReviewUrl} variant="ghost" icon={<PenLine size={16} strokeWidth={1.8} />}>
+                      Lascia una recensione
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
