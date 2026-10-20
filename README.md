@@ -110,11 +110,16 @@ La sezione «Le recensioni su Google» legge valutazione e recensioni in tempo r
 **Configurazione una tantum (Google Cloud, account Dental Go):**
 1. Progetto «Sito Studio Troiano» › API e servizi › abilitare **Places API (New)** (serve un account di fatturazione).
 2. Credenziali › Crea chiave API › Limita chiave: solo **Places API (New)**.
-3. Quote › Places API (New) › «Place Details … per day»: impostare **30** al giorno. Ogni visualizzazione
+3. Limite giornaliero: la quota di Google non si può abbassare su questo account, quindi il limite è nel sito
+   (`DAILY_LIMIT = 30` in `functions/api/recensioni.ts`), contato nel KV di Cloudflare. Ogni visualizzazione
    della sezione è una richiesta «Place Details Enterprise + Atmosphere»; Google ne regala 1.000 al mese,
-   quindi con 30 al giorno il costo resta 0 €. Se la quota finisce, la sezione mostra solo i pulsanti.
+   quindi con 30 al giorno il costo resta 0 €. Oltre il limite la sezione mostra solo i pulsanti.
+   Cloudflare › Storage › KV › namespace `troiano-recensioni`; Pages › studio-troiano › Impostazioni ›
+   Binding › KV namespace: nome variabile **`RECENSIONI_KV`** → `troiano-recensioni` (Produzione).
 4. Cloudflare › Pages › studio-troiano › Impostazioni › Variabili e segreti › Aggiungi **segreto**
    `GOOGLE_PLACES_KEY` (Produzione) con la chiave, poi ripubblicare l'ultimo deploy.
+5. Account Google Cloud in prova gratuita (90 giorni dal 20/10/2026): prima della scadenza premere
+   «Fai l'upgrade», altrimenti le API si fermano e restano solo i pulsanti.
 
 Regole di Google rispettate: nessuna cache dei contenuti, recensioni nell'ordine di Google con nota esplicativa,
 autore con foto, nome e link, link a ogni recensione su Google Maps, logo Google, «Tradotta da Google» se serve.

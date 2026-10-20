@@ -10,10 +10,30 @@
  * Regole di Google rispettate: nessuna memorizzazione dei contenuti (cache-control: no-store),
  * recensioni nell'ordine di Google (pertinenza), autore con foto, nome e link, link all'originale.
  * Costo: ogni richiesta è una «Place Details Enterprise + Atmosphere»; Google ne regala 1.000 al mese.
- * Per non superarle mai, impostare in Google Cloud una quota giornaliera (vedi README).
+ * Per non superarle mai c'è un limite giornaliero (DAILY_LIMIT) contato nel KV di Cloudflare
+ * RECENSIONI_KV (binding facoltativo, piano gratuito): 30 al giorno = massimo ~930 al mese.
  */
-type Env = { GOOGLE_PLACES_KEY?: string }
+type KV = {
+  get(key: string): Promise<string | null>
+  put(key: string, value: string, opts?: { expirationTtl?: number }): Promise<void>
+}
+type Env = { GOOGLE_PLACES_KEY?: string; RECENSIONI_KV?: KV }
 type Ctx = { request: Request; env: Env }
+
+/** Richieste massime a Google al giorno (fuso orario di Roma). */
+const DAILY_LIMIT = 30
+
+const todayRome = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome' }).format(new Date())
+
+/** true se la richiesta rientra nel limite di oggi (e la conta). Senza KV non limita. */
+async function withinDailyLimit(kv?: KV): Promise<boolean> {
+  if (!kv) return true
+  const key = `richieste:${todayRome()}`
+  const used = Number((await kv.get(key)) ?? '0') || 0
+  if (used >= DAILY_LIMIT) return false
+  await kv.put(key, String(used + 1), { expirationTtl: 3 * 24 * 60 * 60 })
+  return true
+}
 
 /** ID della scheda Google dello studio (Google permette di conservarlo senza limiti). */
 const PLACE_ID = 'ChIJYShCM9ilOxMROKJk1hZhWhM'
@@ -44,6 +64,13 @@ export const onRequestGet = async ({ request, env }: Ctx): Promise<Response> => 
   // Solo richieste dal sito stesso
   const origin = request.headers.get('origin')
   if (origin && new URL(origin).host !== new URL(request.url).host) return json({ error: 'forbidden' }, 403)
+
+  // Limite giornaliero: oltre, il sito mostra solo i pulsanti verso Google (costo sempre 0 €)
+  try {
+    if (!(await withinDailyLimit(env.RECENSIONI_KV))) return json({ error: 'quota' }, 503)
+  } catch {
+    return json({ error: 'quota_check_failed' }, 503)
+  }
 
   let upstream: Response
   try {
