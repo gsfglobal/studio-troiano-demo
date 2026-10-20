@@ -121,6 +121,9 @@ La sezione «Le recensioni su Google» legge valutazione e recensioni in tempo r
 5. Account Google Cloud in prova gratuita (90 giorni dal 20/10/2026): prima della scadenza premere
    «Fai l'upgrade», altrimenti le API si fermano e restano solo i pulsanti.
 
+**Stato (20/10/2026):** binding `RECENSIONI_KV` e segreto `GOOGLE_PLACES_KEY` configurati in Produzione.
+Scadenza della prova Google Cloud: circa **18/01/2027** (fare l'upgrade prima).
+
 Regole di Google rispettate: nessuna cache dei contenuti, recensioni nell'ordine di Google con nota esplicativa,
 autore con foto, nome e link, link a ogni recensione su Google Maps, logo Google, «Tradotta da Google» se serve.
 
